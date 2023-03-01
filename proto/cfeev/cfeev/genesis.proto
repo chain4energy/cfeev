@@ -1,0 +1,14 @@
+syntax = "proto3";
+package cfeev.cfeev;
+
+import "gogoproto/gogo.proto";
+import "cfeev/cfeev/params.proto";
+// this line is used by starport scaffolding # genesis/proto/import
+
+option go_package = "cfeev/x/cfeev/types";
+
+// GenesisState defines the cfeev module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+  // this line is used by starport scaffolding # genesis/proto/state
+}

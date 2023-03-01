@@ -1,8 +1,10 @@
 // THIS FILE IS GENERATED AUTOMATICALLY. DO NOT MODIFY.
 
+import CfeevCfeev from './cfeev.cfeev'
 
 
 export default { 
+  CfeevCfeev: load(CfeevCfeev, 'cfeev.cfeev'),
   
 }
 
