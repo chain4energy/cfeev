@@ -26,6 +26,16 @@ export interface MsgStartEnergyTransferRequest {
 export interface MsgStartEnergyTransferRequestResponse {
 }
 
+export interface MsgEnergyTransferStartedRequest {
+  creator: string;
+  energyTransferId: number;
+  chargerId: string;
+  info: string;
+}
+
+export interface MsgEnergyTransferStartedRequestResponse {
+}
+
 function createBaseMsgPublishEnergyTransferOffer(): MsgPublishEnergyTransferOffer {
   return { creator: "", chargerId: "", tariff: "", location: undefined };
 }
@@ -276,11 +286,133 @@ export const MsgStartEnergyTransferRequestResponse = {
   },
 };
 
+function createBaseMsgEnergyTransferStartedRequest(): MsgEnergyTransferStartedRequest {
+  return { creator: "", energyTransferId: 0, chargerId: "", info: "" };
+}
+
+export const MsgEnergyTransferStartedRequest = {
+  encode(message: MsgEnergyTransferStartedRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.energyTransferId !== 0) {
+      writer.uint32(16).uint64(message.energyTransferId);
+    }
+    if (message.chargerId !== "") {
+      writer.uint32(26).string(message.chargerId);
+    }
+    if (message.info !== "") {
+      writer.uint32(34).string(message.info);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgEnergyTransferStartedRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgEnergyTransferStartedRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.energyTransferId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.chargerId = reader.string();
+          break;
+        case 4:
+          message.info = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgEnergyTransferStartedRequest {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      energyTransferId: isSet(object.energyTransferId) ? Number(object.energyTransferId) : 0,
+      chargerId: isSet(object.chargerId) ? String(object.chargerId) : "",
+      info: isSet(object.info) ? String(object.info) : "",
+    };
+  },
+
+  toJSON(message: MsgEnergyTransferStartedRequest): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.energyTransferId !== undefined && (obj.energyTransferId = Math.round(message.energyTransferId));
+    message.chargerId !== undefined && (obj.chargerId = message.chargerId);
+    message.info !== undefined && (obj.info = message.info);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgEnergyTransferStartedRequest>, I>>(
+    object: I,
+  ): MsgEnergyTransferStartedRequest {
+    const message = createBaseMsgEnergyTransferStartedRequest();
+    message.creator = object.creator ?? "";
+    message.energyTransferId = object.energyTransferId ?? 0;
+    message.chargerId = object.chargerId ?? "";
+    message.info = object.info ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgEnergyTransferStartedRequestResponse(): MsgEnergyTransferStartedRequestResponse {
+  return {};
+}
+
+export const MsgEnergyTransferStartedRequestResponse = {
+  encode(_: MsgEnergyTransferStartedRequestResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgEnergyTransferStartedRequestResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgEnergyTransferStartedRequestResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgEnergyTransferStartedRequestResponse {
+    return {};
+  },
+
+  toJSON(_: MsgEnergyTransferStartedRequestResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgEnergyTransferStartedRequestResponse>, I>>(
+    _: I,
+  ): MsgEnergyTransferStartedRequestResponse {
+    const message = createBaseMsgEnergyTransferStartedRequestResponse();
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   PublishEnergyTransferOffer(request: MsgPublishEnergyTransferOffer): Promise<MsgPublishEnergyTransferOfferResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   StartEnergyTransferRequest(request: MsgStartEnergyTransferRequest): Promise<MsgStartEnergyTransferRequestResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  EnergyTransferStartedRequest(
+    request: MsgEnergyTransferStartedRequest,
+  ): Promise<MsgEnergyTransferStartedRequestResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -289,6 +421,7 @@ export class MsgClientImpl implements Msg {
     this.rpc = rpc;
     this.PublishEnergyTransferOffer = this.PublishEnergyTransferOffer.bind(this);
     this.StartEnergyTransferRequest = this.StartEnergyTransferRequest.bind(this);
+    this.EnergyTransferStartedRequest = this.EnergyTransferStartedRequest.bind(this);
   }
   PublishEnergyTransferOffer(request: MsgPublishEnergyTransferOffer): Promise<MsgPublishEnergyTransferOfferResponse> {
     const data = MsgPublishEnergyTransferOffer.encode(request).finish();
@@ -300,6 +433,14 @@ export class MsgClientImpl implements Msg {
     const data = MsgStartEnergyTransferRequest.encode(request).finish();
     const promise = this.rpc.request("cfeev.cfeev.Msg", "StartEnergyTransferRequest", data);
     return promise.then((data) => MsgStartEnergyTransferRequestResponse.decode(new _m0.Reader(data)));
+  }
+
+  EnergyTransferStartedRequest(
+    request: MsgEnergyTransferStartedRequest,
+  ): Promise<MsgEnergyTransferStartedRequestResponse> {
+    const data = MsgEnergyTransferStartedRequest.encode(request).finish();
+    const promise = this.rpc.request("cfeev.cfeev.Msg", "EnergyTransferStartedRequest", data);
+    return promise.then((data) => MsgEnergyTransferStartedRequestResponse.decode(new _m0.Reader(data)));
   }
 }
 

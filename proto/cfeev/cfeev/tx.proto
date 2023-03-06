@@ -10,6 +10,7 @@ option go_package = "cfeev/x/cfeev/types";
 service Msg {
       rpc PublishEnergyTransferOffer(MsgPublishEnergyTransferOffer) returns (MsgPublishEnergyTransferOfferResponse);
   rpc StartEnergyTransferRequest(MsgStartEnergyTransferRequest) returns (MsgStartEnergyTransferRequestResponse);
+  rpc EnergyTransferStartedRequest(MsgEnergyTransferStartedRequest) returns (MsgEnergyTransferStartedRequestResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -32,6 +33,16 @@ message MsgStartEnergyTransferRequest {
 }
 
 message MsgStartEnergyTransferRequestResponse {
+}
+
+message MsgEnergyTransferStartedRequest {
+  string creator = 1;
+  uint64 energyTransferId = 2;
+  string chargerId = 3;
+  string info = 4;
+}
+
+message MsgEnergyTransferStartedRequestResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

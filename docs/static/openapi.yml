@@ -45204,6 +45204,8 @@ definitions:
         type: string
       longitude:
         type: string
+  cfeev.cfeev.MsgEnergyTransferStartedRequestResponse:
+    type: object
   cfeev.cfeev.MsgPublishEnergyTransferOfferResponse:
     type: object
   cfeev.cfeev.MsgStartEnergyTransferRequestResponse:

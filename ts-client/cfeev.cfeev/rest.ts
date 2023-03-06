@@ -43,6 +43,8 @@ export interface CfeevEnergyTransferOffer {
   tariff?: number;
 }
 
+export type CfeevMsgEnergyTransferStartedRequestResponse = object;
+
 export type CfeevMsgPublishEnergyTransferOfferResponse = object;
 
 export type CfeevMsgStartEnergyTransferRequestResponse = object;

@@ -32,6 +32,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgStartEnergyTransferRequest int = 100
 
+	opWeightMsgEnergyTransferStartedRequest = "op_weight_msg_energy_transfer_started_request"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgEnergyTransferStartedRequest int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -86,6 +90,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgStartEnergyTransferRequest,
 		cfeevsimulation.SimulateMsgStartEnergyTransferRequest(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgEnergyTransferStartedRequest int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgEnergyTransferStartedRequest, &weightMsgEnergyTransferStartedRequest, nil,
+		func(_ *rand.Rand) {
+			weightMsgEnergyTransferStartedRequest = defaultWeightMsgEnergyTransferStartedRequest
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgEnergyTransferStartedRequest,
+		cfeevsimulation.SimulateMsgEnergyTransferStartedRequest(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

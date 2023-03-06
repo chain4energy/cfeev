@@ -7,11 +7,18 @@ import { msgTypes } from './registry';
 import { IgniteClient } from "../client"
 import { MissingWalletError } from "../helpers"
 import { Api } from "./rest";
+import { MsgEnergyTransferStartedRequest } from "./types/cfeev/cfeev/tx";
 import { MsgPublishEnergyTransferOffer } from "./types/cfeev/cfeev/tx";
 import { MsgStartEnergyTransferRequest } from "./types/cfeev/cfeev/tx";
 
 
-export { MsgPublishEnergyTransferOffer, MsgStartEnergyTransferRequest };
+export { MsgEnergyTransferStartedRequest, MsgPublishEnergyTransferOffer, MsgStartEnergyTransferRequest };
+
+type sendMsgEnergyTransferStartedRequestParams = {
+  value: MsgEnergyTransferStartedRequest,
+  fee?: StdFee,
+  memo?: string
+};
 
 type sendMsgPublishEnergyTransferOfferParams = {
   value: MsgPublishEnergyTransferOffer,
@@ -25,6 +32,10 @@ type sendMsgStartEnergyTransferRequestParams = {
   memo?: string
 };
 
+
+type msgEnergyTransferStartedRequestParams = {
+  value: MsgEnergyTransferStartedRequest,
+};
 
 type msgPublishEnergyTransferOfferParams = {
   value: MsgPublishEnergyTransferOffer,
@@ -51,6 +62,20 @@ interface TxClientOptions {
 export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "http://localhost:26657", prefix: "cosmos" }) => {
 
   return {
+		
+		async sendMsgEnergyTransferStartedRequest({ value, fee, memo }: sendMsgEnergyTransferStartedRequestParams): Promise<DeliverTxResponse> {
+			if (!signer) {
+					throw new Error('TxClient:sendMsgEnergyTransferStartedRequest: Unable to sign Tx. Signer is not present.')
+			}
+			try {			
+				const { address } = (await signer.getAccounts())[0]; 
+				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
+				let msg = this.msgEnergyTransferStartedRequest({ value: MsgEnergyTransferStartedRequest.fromPartial(value) })
+				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
+			} catch (e: any) {
+				throw new Error('TxClient:sendMsgEnergyTransferStartedRequest: Could not broadcast Tx: '+ e.message)
+			}
+		},
 		
 		async sendMsgPublishEnergyTransferOffer({ value, fee, memo }: sendMsgPublishEnergyTransferOfferParams): Promise<DeliverTxResponse> {
 			if (!signer) {
@@ -80,6 +105,14 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 			}
 		},
 		
+		
+		msgEnergyTransferStartedRequest({ value }: msgEnergyTransferStartedRequestParams): EncodeObject {
+			try {
+				return { typeUrl: "/cfeev.cfeev.MsgEnergyTransferStartedRequest", value: MsgEnergyTransferStartedRequest.fromPartial( value ) }  
+			} catch (e: any) {
+				throw new Error('TxClient:MsgEnergyTransferStartedRequest: Could not create message: ' + e.message)
+			}
+		},
 		
 		msgPublishEnergyTransferOffer({ value }: msgPublishEnergyTransferOfferParams): EncodeObject {
 			try {
