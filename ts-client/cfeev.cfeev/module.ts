@@ -7,10 +7,32 @@ import { msgTypes } from './registry';
 import { IgniteClient } from "../client"
 import { MissingWalletError } from "../helpers"
 import { Api } from "./rest";
+import { MsgPublishEnergyTransferOffer } from "./types/cfeev/cfeev/tx";
+import { MsgStartEnergyTransferRequest } from "./types/cfeev/cfeev/tx";
 
 
-export {  };
+export { MsgPublishEnergyTransferOffer, MsgStartEnergyTransferRequest };
 
+type sendMsgPublishEnergyTransferOfferParams = {
+  value: MsgPublishEnergyTransferOffer,
+  fee?: StdFee,
+  memo?: string
+};
+
+type sendMsgStartEnergyTransferRequestParams = {
+  value: MsgStartEnergyTransferRequest,
+  fee?: StdFee,
+  memo?: string
+};
+
+
+type msgPublishEnergyTransferOfferParams = {
+  value: MsgPublishEnergyTransferOffer,
+};
+
+type msgStartEnergyTransferRequestParams = {
+  value: MsgStartEnergyTransferRequest,
+};
 
 
 export const registry = new Registry(msgTypes);
@@ -30,6 +52,50 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 
   return {
 		
+		async sendMsgPublishEnergyTransferOffer({ value, fee, memo }: sendMsgPublishEnergyTransferOfferParams): Promise<DeliverTxResponse> {
+			if (!signer) {
+					throw new Error('TxClient:sendMsgPublishEnergyTransferOffer: Unable to sign Tx. Signer is not present.')
+			}
+			try {			
+				const { address } = (await signer.getAccounts())[0]; 
+				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
+				let msg = this.msgPublishEnergyTransferOffer({ value: MsgPublishEnergyTransferOffer.fromPartial(value) })
+				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
+			} catch (e: any) {
+				throw new Error('TxClient:sendMsgPublishEnergyTransferOffer: Could not broadcast Tx: '+ e.message)
+			}
+		},
+		
+		async sendMsgStartEnergyTransferRequest({ value, fee, memo }: sendMsgStartEnergyTransferRequestParams): Promise<DeliverTxResponse> {
+			if (!signer) {
+					throw new Error('TxClient:sendMsgStartEnergyTransferRequest: Unable to sign Tx. Signer is not present.')
+			}
+			try {			
+				const { address } = (await signer.getAccounts())[0]; 
+				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
+				let msg = this.msgStartEnergyTransferRequest({ value: MsgStartEnergyTransferRequest.fromPartial(value) })
+				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
+			} catch (e: any) {
+				throw new Error('TxClient:sendMsgStartEnergyTransferRequest: Could not broadcast Tx: '+ e.message)
+			}
+		},
+		
+		
+		msgPublishEnergyTransferOffer({ value }: msgPublishEnergyTransferOfferParams): EncodeObject {
+			try {
+				return { typeUrl: "/cfeev.cfeev.MsgPublishEnergyTransferOffer", value: MsgPublishEnergyTransferOffer.fromPartial( value ) }  
+			} catch (e: any) {
+				throw new Error('TxClient:MsgPublishEnergyTransferOffer: Could not create message: ' + e.message)
+			}
+		},
+		
+		msgStartEnergyTransferRequest({ value }: msgStartEnergyTransferRequestParams): EncodeObject {
+			try {
+				return { typeUrl: "/cfeev.cfeev.MsgStartEnergyTransferRequest", value: MsgStartEnergyTransferRequest.fromPartial( value ) }  
+			} catch (e: any) {
+				throw new Error('TxClient:MsgStartEnergyTransferRequest: Could not create message: ' + e.message)
+			}
+		},
 		
 	}
 };

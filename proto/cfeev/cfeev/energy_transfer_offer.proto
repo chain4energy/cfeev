@@ -1,0 +1,21 @@
+syntax = "proto3";
+package cfeev.cfeev;
+
+option go_package = "cfeev/x/cfeev/types";
+import "cfeev/cfeev/location.proto"; 
+
+message EnergyTransferOffer {
+  uint64 id = 1;
+  string owner = 2; 
+  string chargerId = 3; 
+  ChargerStatus chargerStatus = 4; 
+  Location location = 5; 
+  float tariff = 6; 
+  
+}
+
+enum ChargerStatus {
+    ACTIVE = 0;
+    BUSY = 1;
+    INACTIVE = 2;
+}

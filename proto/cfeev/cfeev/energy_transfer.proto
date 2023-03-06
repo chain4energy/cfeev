@@ -1,0 +1,24 @@
+syntax = "proto3";
+package cfeev.cfeev;
+
+option go_package = "cfeev/x/cfeev/types";
+
+message EnergyTransfer {
+  uint64 id = 1;
+  uint64 energyTransferOfferId = 2; 
+  string chargerId = 3; 
+  string ownerAccountAddress = 4; 
+  string driverAccountAddress = 5; 
+  float offeredTariff = 6; 
+  TransferStatus status = 7; 
+  string collateral = 8;
+  
+}
+
+enum TransferStatus {
+    REQUESTED = 0;
+    ONGOING = 1;
+    PAID = 2;
+    CANCELLED = 3;
+}
+

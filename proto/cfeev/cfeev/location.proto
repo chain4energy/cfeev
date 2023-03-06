@@ -1,0 +1,10 @@
+syntax = "proto3";
+package cfeev.cfeev;
+
+option go_package = "cfeev/x/cfeev/types";
+
+message Location {
+  
+  string latitude = 1; 
+  string longitude = 2; 
+}

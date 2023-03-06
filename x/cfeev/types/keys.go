@@ -17,3 +17,13 @@ const (
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
+
+const (
+	EnergyTransferOfferKey      = "EnergyTransferOffer/value/"
+	EnergyTransferOfferCountKey = "EnergyTransferOffer/count/"
+)
+
+const (
+	EnergyTransferKey      = "EnergyTransfer/value/"
+	EnergyTransferCountKey = "EnergyTransfer/count/"
+)

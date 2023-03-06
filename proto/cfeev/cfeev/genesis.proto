@@ -3,6 +3,8 @@ package cfeev.cfeev;
 
 import "gogoproto/gogo.proto";
 import "cfeev/cfeev/params.proto";
+import "cfeev/cfeev/energy_transfer_offer.proto";
+import "cfeev/cfeev/energy_transfer.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "cfeev/x/cfeev/types";
@@ -10,5 +12,9 @@ option go_package = "cfeev/x/cfeev/types";
 // GenesisState defines the cfeev module's genesis state.
 message GenesisState {
   Params params = 1 [(gogoproto.nullable) = false];
+  repeated EnergyTransferOffer energyTransferOfferList = 2 [(gogoproto.nullable) = false];
+  uint64 energyTransferOfferCount = 3;
+  repeated EnergyTransfer energyTransferList = 4 [(gogoproto.nullable) = false];
+  uint64 energyTransferCount = 5;
   // this line is used by starport scaffolding # genesis/proto/state
 }

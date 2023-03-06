@@ -24,7 +24,15 @@ var (
 )
 
 const (
-// this line is used by starport scaffolding # simapp/module/const
+	opWeightMsgPublishEnergyTransferOffer = "op_weight_msg_publish_energy_transfer_offer"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgPublishEnergyTransferOffer int = 100
+
+	opWeightMsgStartEnergyTransferRequest = "op_weight_msg_start_energy_transfer_request"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgStartEnergyTransferRequest int = 100
+
+	// this line is used by starport scaffolding # simapp/module/const
 )
 
 // GenerateGenesisState creates a randomized GenState of the module
@@ -57,6 +65,28 @@ func (am AppModule) RegisterStoreDecoder(_ sdk.StoreDecoderRegistry) {}
 // WeightedOperations returns the all the gov module operations with their respective weights.
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
 	operations := make([]simtypes.WeightedOperation, 0)
+
+	var weightMsgPublishEnergyTransferOffer int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgPublishEnergyTransferOffer, &weightMsgPublishEnergyTransferOffer, nil,
+		func(_ *rand.Rand) {
+			weightMsgPublishEnergyTransferOffer = defaultWeightMsgPublishEnergyTransferOffer
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgPublishEnergyTransferOffer,
+		cfeevsimulation.SimulateMsgPublishEnergyTransferOffer(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgStartEnergyTransferRequest int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgStartEnergyTransferRequest, &weightMsgStartEnergyTransferRequest, nil,
+		func(_ *rand.Rand) {
+			weightMsgStartEnergyTransferRequest = defaultWeightMsgStartEnergyTransferRequest
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgStartEnergyTransferRequest,
+		cfeevsimulation.SimulateMsgStartEnergyTransferRequest(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
 

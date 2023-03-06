@@ -2,12 +2,36 @@ syntax = "proto3";
 package cfeev.cfeev;
 
 // this line is used by starport scaffolding # proto/tx/import
+import "cfeev/cfeev/location.proto";
 
 option go_package = "cfeev/x/cfeev/types";
 
 // Msg defines the Msg service.
 service Msg {
-    // this line is used by starport scaffolding # proto/tx/rpc
+      rpc PublishEnergyTransferOffer(MsgPublishEnergyTransferOffer) returns (MsgPublishEnergyTransferOfferResponse);
+  rpc StartEnergyTransferRequest(MsgStartEnergyTransferRequest) returns (MsgStartEnergyTransferRequestResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgPublishEnergyTransferOffer {
+  string creator = 1;
+  string chargerId = 2;
+  string tariff = 3;
+  Location location = 4;
+}
+
+message MsgPublishEnergyTransferOfferResponse {
+}
+
+message MsgStartEnergyTransferRequest {
+  string creator = 1;
+  uint64 energyTransferOfferId = 2;
+  string chargerId = 3;
+  string ownerAccountAddress = 4;
+  string offeredTariff = 5;
+}
+
+message MsgStartEnergyTransferRequestResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
