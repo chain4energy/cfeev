@@ -36,6 +36,14 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgEnergyTransferStartedRequest int = 100
 
+	opWeightMsgEnergyTransferCompletedRequest = "op_weight_msg_energy_transfer_completed_request"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgEnergyTransferCompletedRequest int = 100
+
+	opWeightMsgCancelEnergyTransferRequest = "op_weight_msg_cancel_energy_transfer_request"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCancelEnergyTransferRequest int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -101,6 +109,28 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgEnergyTransferStartedRequest,
 		cfeevsimulation.SimulateMsgEnergyTransferStartedRequest(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgEnergyTransferCompletedRequest int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgEnergyTransferCompletedRequest, &weightMsgEnergyTransferCompletedRequest, nil,
+		func(_ *rand.Rand) {
+			weightMsgEnergyTransferCompletedRequest = defaultWeightMsgEnergyTransferCompletedRequest
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgEnergyTransferCompletedRequest,
+		cfeevsimulation.SimulateMsgEnergyTransferCompletedRequest(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgCancelEnergyTransferRequest int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCancelEnergyTransferRequest, &weightMsgCancelEnergyTransferRequest, nil,
+		func(_ *rand.Rand) {
+			weightMsgCancelEnergyTransferRequest = defaultWeightMsgCancelEnergyTransferRequest
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCancelEnergyTransferRequest,
+		cfeevsimulation.SimulateMsgCancelEnergyTransferRequest(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

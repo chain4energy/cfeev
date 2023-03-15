@@ -57,7 +57,8 @@ export interface EnergyTransfer {
   driverAccountAddress: string;
   offeredTariff: number;
   status: TransferStatus;
-  collateral: string;
+  collateral: number;
+  energyToTransfer: number;
 }
 
 function createBaseEnergyTransfer(): EnergyTransfer {
@@ -69,7 +70,8 @@ function createBaseEnergyTransfer(): EnergyTransfer {
     driverAccountAddress: "",
     offeredTariff: 0,
     status: 0,
-    collateral: "",
+    collateral: 0,
+    energyToTransfer: 0,
   };
 }
 
@@ -96,8 +98,11 @@ export const EnergyTransfer = {
     if (message.status !== 0) {
       writer.uint32(56).int32(message.status);
     }
-    if (message.collateral !== "") {
-      writer.uint32(66).string(message.collateral);
+    if (message.collateral !== 0) {
+      writer.uint32(64).uint64(message.collateral);
+    }
+    if (message.energyToTransfer !== 0) {
+      writer.uint32(77).float(message.energyToTransfer);
     }
     return writer;
   },
@@ -131,7 +136,10 @@ export const EnergyTransfer = {
           message.status = reader.int32() as any;
           break;
         case 8:
-          message.collateral = reader.string();
+          message.collateral = longToNumber(reader.uint64() as Long);
+          break;
+        case 9:
+          message.energyToTransfer = reader.float();
           break;
         default:
           reader.skipType(tag & 7);
@@ -150,7 +158,8 @@ export const EnergyTransfer = {
       driverAccountAddress: isSet(object.driverAccountAddress) ? String(object.driverAccountAddress) : "",
       offeredTariff: isSet(object.offeredTariff) ? Number(object.offeredTariff) : 0,
       status: isSet(object.status) ? transferStatusFromJSON(object.status) : 0,
-      collateral: isSet(object.collateral) ? String(object.collateral) : "",
+      collateral: isSet(object.collateral) ? Number(object.collateral) : 0,
+      energyToTransfer: isSet(object.energyToTransfer) ? Number(object.energyToTransfer) : 0,
     };
   },
 
@@ -164,7 +173,8 @@ export const EnergyTransfer = {
     message.driverAccountAddress !== undefined && (obj.driverAccountAddress = message.driverAccountAddress);
     message.offeredTariff !== undefined && (obj.offeredTariff = message.offeredTariff);
     message.status !== undefined && (obj.status = transferStatusToJSON(message.status));
-    message.collateral !== undefined && (obj.collateral = message.collateral);
+    message.collateral !== undefined && (obj.collateral = Math.round(message.collateral));
+    message.energyToTransfer !== undefined && (obj.energyToTransfer = message.energyToTransfer);
     return obj;
   },
 
@@ -177,7 +187,8 @@ export const EnergyTransfer = {
     message.driverAccountAddress = object.driverAccountAddress ?? "";
     message.offeredTariff = object.offeredTariff ?? 0;
     message.status = object.status ?? 0;
-    message.collateral = object.collateral ?? "";
+    message.collateral = object.collateral ?? 0;
+    message.energyToTransfer = object.energyToTransfer ?? 0;
     return message;
   },
 };

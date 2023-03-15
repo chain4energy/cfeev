@@ -8,5 +8,9 @@ import (
 
 // x/cfeev module sentinel errors
 var (
-	ErrSample = sdkerrors.Register(ModuleName, 1100, "sample error")
+	ErrOfferForChargerAlreadyExists = sdkerrors.Register(ModuleName, 2, "energy transfer offer for this charger already exists")
+	ErrBusyCharger                  = sdkerrors.Register(ModuleName, 3, "charger is busy")
+	ErrEnergyTransferNotFound       = sdkerrors.Register(ModuleName, 4, "energy transfer not found")
+	ErrEnergyTransferOfferNotFound  = sdkerrors.Register(ModuleName, 5, "energy transfer offer not found")
+	ErrCoinTransferFailed           = sdkerrors.Register(ModuleName, 6, "coin transfer failed")
 )

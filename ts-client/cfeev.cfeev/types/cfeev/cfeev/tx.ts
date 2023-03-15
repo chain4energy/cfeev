@@ -13,6 +13,7 @@ export interface MsgPublishEnergyTransferOffer {
 }
 
 export interface MsgPublishEnergyTransferOfferResponse {
+  id: number;
 }
 
 export interface MsgStartEnergyTransferRequest {
@@ -34,6 +35,28 @@ export interface MsgEnergyTransferStartedRequest {
 }
 
 export interface MsgEnergyTransferStartedRequestResponse {
+}
+
+export interface MsgEnergyTransferCompletedRequest {
+  creator: string;
+  energyTransferId: number;
+  chargerId: string;
+  usedServiceUnits: string;
+  info: string;
+}
+
+export interface MsgEnergyTransferCompletedRequestResponse {
+}
+
+export interface MsgCancelEnergyTransferRequest {
+  creator: string;
+  energyTransferId: number;
+  chargerId: string;
+  errorInfo: string;
+  errorCode: string;
+}
+
+export interface MsgCancelEnergyTransferRequestResponse {
 }
 
 function createBaseMsgPublishEnergyTransferOffer(): MsgPublishEnergyTransferOffer {
@@ -117,11 +140,14 @@ export const MsgPublishEnergyTransferOffer = {
 };
 
 function createBaseMsgPublishEnergyTransferOfferResponse(): MsgPublishEnergyTransferOfferResponse {
-  return {};
+  return { id: 0 };
 }
 
 export const MsgPublishEnergyTransferOfferResponse = {
-  encode(_: MsgPublishEnergyTransferOfferResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: MsgPublishEnergyTransferOfferResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id);
+    }
     return writer;
   },
 
@@ -132,6 +158,9 @@ export const MsgPublishEnergyTransferOfferResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long);
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -140,19 +169,21 @@ export const MsgPublishEnergyTransferOfferResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgPublishEnergyTransferOfferResponse {
-    return {};
+  fromJSON(object: any): MsgPublishEnergyTransferOfferResponse {
+    return { id: isSet(object.id) ? Number(object.id) : 0 };
   },
 
-  toJSON(_: MsgPublishEnergyTransferOfferResponse): unknown {
+  toJSON(message: MsgPublishEnergyTransferOfferResponse): unknown {
     const obj: any = {};
+    message.id !== undefined && (obj.id = Math.round(message.id));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgPublishEnergyTransferOfferResponse>, I>>(
-    _: I,
+    object: I,
   ): MsgPublishEnergyTransferOfferResponse {
     const message = createBaseMsgPublishEnergyTransferOfferResponse();
+    message.id = object.id ?? 0;
     return message;
   },
 };
@@ -405,14 +436,274 @@ export const MsgEnergyTransferStartedRequestResponse = {
   },
 };
 
+function createBaseMsgEnergyTransferCompletedRequest(): MsgEnergyTransferCompletedRequest {
+  return { creator: "", energyTransferId: 0, chargerId: "", usedServiceUnits: "", info: "" };
+}
+
+export const MsgEnergyTransferCompletedRequest = {
+  encode(message: MsgEnergyTransferCompletedRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.energyTransferId !== 0) {
+      writer.uint32(16).uint64(message.energyTransferId);
+    }
+    if (message.chargerId !== "") {
+      writer.uint32(26).string(message.chargerId);
+    }
+    if (message.usedServiceUnits !== "") {
+      writer.uint32(34).string(message.usedServiceUnits);
+    }
+    if (message.info !== "") {
+      writer.uint32(42).string(message.info);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgEnergyTransferCompletedRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgEnergyTransferCompletedRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.energyTransferId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.chargerId = reader.string();
+          break;
+        case 4:
+          message.usedServiceUnits = reader.string();
+          break;
+        case 5:
+          message.info = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgEnergyTransferCompletedRequest {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      energyTransferId: isSet(object.energyTransferId) ? Number(object.energyTransferId) : 0,
+      chargerId: isSet(object.chargerId) ? String(object.chargerId) : "",
+      usedServiceUnits: isSet(object.usedServiceUnits) ? String(object.usedServiceUnits) : "",
+      info: isSet(object.info) ? String(object.info) : "",
+    };
+  },
+
+  toJSON(message: MsgEnergyTransferCompletedRequest): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.energyTransferId !== undefined && (obj.energyTransferId = Math.round(message.energyTransferId));
+    message.chargerId !== undefined && (obj.chargerId = message.chargerId);
+    message.usedServiceUnits !== undefined && (obj.usedServiceUnits = message.usedServiceUnits);
+    message.info !== undefined && (obj.info = message.info);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgEnergyTransferCompletedRequest>, I>>(
+    object: I,
+  ): MsgEnergyTransferCompletedRequest {
+    const message = createBaseMsgEnergyTransferCompletedRequest();
+    message.creator = object.creator ?? "";
+    message.energyTransferId = object.energyTransferId ?? 0;
+    message.chargerId = object.chargerId ?? "";
+    message.usedServiceUnits = object.usedServiceUnits ?? "";
+    message.info = object.info ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgEnergyTransferCompletedRequestResponse(): MsgEnergyTransferCompletedRequestResponse {
+  return {};
+}
+
+export const MsgEnergyTransferCompletedRequestResponse = {
+  encode(_: MsgEnergyTransferCompletedRequestResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgEnergyTransferCompletedRequestResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgEnergyTransferCompletedRequestResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgEnergyTransferCompletedRequestResponse {
+    return {};
+  },
+
+  toJSON(_: MsgEnergyTransferCompletedRequestResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgEnergyTransferCompletedRequestResponse>, I>>(
+    _: I,
+  ): MsgEnergyTransferCompletedRequestResponse {
+    const message = createBaseMsgEnergyTransferCompletedRequestResponse();
+    return message;
+  },
+};
+
+function createBaseMsgCancelEnergyTransferRequest(): MsgCancelEnergyTransferRequest {
+  return { creator: "", energyTransferId: 0, chargerId: "", errorInfo: "", errorCode: "" };
+}
+
+export const MsgCancelEnergyTransferRequest = {
+  encode(message: MsgCancelEnergyTransferRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.energyTransferId !== 0) {
+      writer.uint32(16).uint64(message.energyTransferId);
+    }
+    if (message.chargerId !== "") {
+      writer.uint32(26).string(message.chargerId);
+    }
+    if (message.errorInfo !== "") {
+      writer.uint32(34).string(message.errorInfo);
+    }
+    if (message.errorCode !== "") {
+      writer.uint32(42).string(message.errorCode);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelEnergyTransferRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCancelEnergyTransferRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.energyTransferId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.chargerId = reader.string();
+          break;
+        case 4:
+          message.errorInfo = reader.string();
+          break;
+        case 5:
+          message.errorCode = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCancelEnergyTransferRequest {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      energyTransferId: isSet(object.energyTransferId) ? Number(object.energyTransferId) : 0,
+      chargerId: isSet(object.chargerId) ? String(object.chargerId) : "",
+      errorInfo: isSet(object.errorInfo) ? String(object.errorInfo) : "",
+      errorCode: isSet(object.errorCode) ? String(object.errorCode) : "",
+    };
+  },
+
+  toJSON(message: MsgCancelEnergyTransferRequest): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.energyTransferId !== undefined && (obj.energyTransferId = Math.round(message.energyTransferId));
+    message.chargerId !== undefined && (obj.chargerId = message.chargerId);
+    message.errorInfo !== undefined && (obj.errorInfo = message.errorInfo);
+    message.errorCode !== undefined && (obj.errorCode = message.errorCode);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCancelEnergyTransferRequest>, I>>(
+    object: I,
+  ): MsgCancelEnergyTransferRequest {
+    const message = createBaseMsgCancelEnergyTransferRequest();
+    message.creator = object.creator ?? "";
+    message.energyTransferId = object.energyTransferId ?? 0;
+    message.chargerId = object.chargerId ?? "";
+    message.errorInfo = object.errorInfo ?? "";
+    message.errorCode = object.errorCode ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgCancelEnergyTransferRequestResponse(): MsgCancelEnergyTransferRequestResponse {
+  return {};
+}
+
+export const MsgCancelEnergyTransferRequestResponse = {
+  encode(_: MsgCancelEnergyTransferRequestResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelEnergyTransferRequestResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCancelEnergyTransferRequestResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgCancelEnergyTransferRequestResponse {
+    return {};
+  },
+
+  toJSON(_: MsgCancelEnergyTransferRequestResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCancelEnergyTransferRequestResponse>, I>>(
+    _: I,
+  ): MsgCancelEnergyTransferRequestResponse {
+    const message = createBaseMsgCancelEnergyTransferRequestResponse();
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   PublishEnergyTransferOffer(request: MsgPublishEnergyTransferOffer): Promise<MsgPublishEnergyTransferOfferResponse>;
   StartEnergyTransferRequest(request: MsgStartEnergyTransferRequest): Promise<MsgStartEnergyTransferRequestResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   EnergyTransferStartedRequest(
     request: MsgEnergyTransferStartedRequest,
   ): Promise<MsgEnergyTransferStartedRequestResponse>;
+  EnergyTransferCompletedRequest(
+    request: MsgEnergyTransferCompletedRequest,
+  ): Promise<MsgEnergyTransferCompletedRequestResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  CancelEnergyTransferRequest(request: MsgCancelEnergyTransferRequest): Promise<MsgCancelEnergyTransferRequestResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -422,6 +713,8 @@ export class MsgClientImpl implements Msg {
     this.PublishEnergyTransferOffer = this.PublishEnergyTransferOffer.bind(this);
     this.StartEnergyTransferRequest = this.StartEnergyTransferRequest.bind(this);
     this.EnergyTransferStartedRequest = this.EnergyTransferStartedRequest.bind(this);
+    this.EnergyTransferCompletedRequest = this.EnergyTransferCompletedRequest.bind(this);
+    this.CancelEnergyTransferRequest = this.CancelEnergyTransferRequest.bind(this);
   }
   PublishEnergyTransferOffer(request: MsgPublishEnergyTransferOffer): Promise<MsgPublishEnergyTransferOfferResponse> {
     const data = MsgPublishEnergyTransferOffer.encode(request).finish();
@@ -441,6 +734,22 @@ export class MsgClientImpl implements Msg {
     const data = MsgEnergyTransferStartedRequest.encode(request).finish();
     const promise = this.rpc.request("cfeev.cfeev.Msg", "EnergyTransferStartedRequest", data);
     return promise.then((data) => MsgEnergyTransferStartedRequestResponse.decode(new _m0.Reader(data)));
+  }
+
+  EnergyTransferCompletedRequest(
+    request: MsgEnergyTransferCompletedRequest,
+  ): Promise<MsgEnergyTransferCompletedRequestResponse> {
+    const data = MsgEnergyTransferCompletedRequest.encode(request).finish();
+    const promise = this.rpc.request("cfeev.cfeev.Msg", "EnergyTransferCompletedRequest", data);
+    return promise.then((data) => MsgEnergyTransferCompletedRequestResponse.decode(new _m0.Reader(data)));
+  }
+
+  CancelEnergyTransferRequest(
+    request: MsgCancelEnergyTransferRequest,
+  ): Promise<MsgCancelEnergyTransferRequestResponse> {
+    const data = MsgCancelEnergyTransferRequest.encode(request).finish();
+    const promise = this.rpc.request("cfeev.cfeev.Msg", "CancelEnergyTransferRequest", data);
+    return promise.then((data) => MsgCancelEnergyTransferRequestResponse.decode(new _m0.Reader(data)));
   }
 }
 

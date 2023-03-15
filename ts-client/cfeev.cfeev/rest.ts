@@ -28,7 +28,12 @@ export interface CfeevEnergyTransfer {
   /** @format float */
   offeredTariff?: number;
   status?: CfeevTransferStatus;
+
+  /** @format uint64 */
   collateral?: string;
+
+  /** @format float */
+  energyToTransfer?: number;
 }
 
 export interface CfeevEnergyTransferOffer {
@@ -43,9 +48,16 @@ export interface CfeevEnergyTransferOffer {
   tariff?: number;
 }
 
+export type CfeevMsgCancelEnergyTransferRequestResponse = object;
+
+export type CfeevMsgEnergyTransferCompletedRequestResponse = object;
+
 export type CfeevMsgEnergyTransferStartedRequestResponse = object;
 
-export type CfeevMsgPublishEnergyTransferOfferResponse = object;
+export interface CfeevMsgPublishEnergyTransferOfferResponse {
+  /** @format uint64 */
+  id?: string;
+}
 
 export type CfeevMsgStartEnergyTransferRequestResponse = object;
 

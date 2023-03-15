@@ -11,7 +11,8 @@ message EnergyTransfer {
   string driverAccountAddress = 5; 
   float offeredTariff = 6; 
   TransferStatus status = 7; 
-  string collateral = 8;
+  uint64 collateral = 8;
+  float energyToTransfer = 9;
   
 }
 

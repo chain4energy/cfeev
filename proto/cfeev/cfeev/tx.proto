@@ -11,6 +11,8 @@ service Msg {
       rpc PublishEnergyTransferOffer(MsgPublishEnergyTransferOffer) returns (MsgPublishEnergyTransferOfferResponse);
   rpc StartEnergyTransferRequest(MsgStartEnergyTransferRequest) returns (MsgStartEnergyTransferRequestResponse);
   rpc EnergyTransferStartedRequest(MsgEnergyTransferStartedRequest) returns (MsgEnergyTransferStartedRequestResponse);
+  rpc EnergyTransferCompletedRequest(MsgEnergyTransferCompletedRequest) returns (MsgEnergyTransferCompletedRequestResponse);
+  rpc CancelEnergyTransferRequest(MsgCancelEnergyTransferRequest) returns (MsgCancelEnergyTransferRequestResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -22,6 +24,7 @@ message MsgPublishEnergyTransferOffer {
 }
 
 message MsgPublishEnergyTransferOfferResponse {
+  uint64 id = 1;
 }
 
 message MsgStartEnergyTransferRequest {
@@ -43,6 +46,28 @@ message MsgEnergyTransferStartedRequest {
 }
 
 message MsgEnergyTransferStartedRequestResponse {
+}
+
+message MsgEnergyTransferCompletedRequest {
+  string creator = 1;
+  uint64 energyTransferId = 2;
+  string chargerId = 3;
+  string usedServiceUnits = 4;
+  string info = 5;
+}
+
+message MsgEnergyTransferCompletedRequestResponse {
+}
+
+message MsgCancelEnergyTransferRequest {
+  string creator = 1;
+  uint64 energyTransferId = 2;
+  string chargerId = 3;
+  string errorInfo = 4;
+  string errorCode = 5;
+}
+
+message MsgCancelEnergyTransferRequestResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

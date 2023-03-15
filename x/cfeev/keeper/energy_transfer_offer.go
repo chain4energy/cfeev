@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 
 	"cfeev/x/cfeev/types"
+
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -91,6 +92,25 @@ func (k Keeper) GetAllEnergyTransferOffer(ctx sdk.Context) (list []types.EnergyT
 	}
 
 	return
+}
+
+func (k Keeper) GetTransferOfferByChargerId(ctx sdk.Context, chargerId string) (val types.EnergyTransferOffer, found bool) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EnergyTransferOfferKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+
+	defer iterator.Close()
+
+	for ; iterator.Valid(); iterator.Next() {
+		var val types.EnergyTransferOffer
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
+
+		if val.ChargerId == chargerId {
+			return val, true
+		}
+
+	}
+
+	return val, false
 }
 
 // GetEnergyTransferOfferIDBytes returns the byte representation of the ID

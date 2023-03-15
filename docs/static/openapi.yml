@@ -44,6 +44,10 @@ paths:
                       default: REQUESTED
                     collateral:
                       type: string
+                      format: uint64
+                    energyToTransfer:
+                      type: number
+                      format: float
               pagination:
                 type: object
                 properties:
@@ -187,6 +191,10 @@ paths:
                     default: REQUESTED
                   collateral:
                     type: string
+                    format: uint64
+                  energyToTransfer:
+                    type: number
+                    format: float
         default:
           description: An unexpected error response.
           schema:
@@ -45170,6 +45178,10 @@ definitions:
         default: REQUESTED
       collateral:
         type: string
+        format: uint64
+      energyToTransfer:
+        type: number
+        format: float
   cfeev.cfeev.EnergyTransferOffer:
     type: object
     properties:
@@ -45204,10 +45216,18 @@ definitions:
         type: string
       longitude:
         type: string
+  cfeev.cfeev.MsgCancelEnergyTransferRequestResponse:
+    type: object
+  cfeev.cfeev.MsgEnergyTransferCompletedRequestResponse:
+    type: object
   cfeev.cfeev.MsgEnergyTransferStartedRequestResponse:
     type: object
   cfeev.cfeev.MsgPublishEnergyTransferOfferResponse:
     type: object
+    properties:
+      id:
+        type: string
+        format: uint64
   cfeev.cfeev.MsgStartEnergyTransferRequestResponse:
     type: object
   cfeev.cfeev.Params:
@@ -45304,6 +45324,10 @@ definitions:
               default: REQUESTED
             collateral:
               type: string
+              format: uint64
+            energyToTransfer:
+              type: number
+              format: float
       pagination:
         type: object
         properties:
@@ -45391,6 +45415,10 @@ definitions:
             default: REQUESTED
           collateral:
             type: string
+            format: uint64
+          energyToTransfer:
+            type: number
+            format: float
   cfeev.cfeev.QueryParamsResponse:
     type: object
     properties:
