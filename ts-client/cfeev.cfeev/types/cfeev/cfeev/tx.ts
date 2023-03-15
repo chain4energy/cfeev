@@ -10,6 +10,7 @@ export interface MsgPublishEnergyTransferOffer {
   chargerId: string;
   tariff: string;
   location: Location | undefined;
+  name: string;
 }
 
 export interface MsgPublishEnergyTransferOfferResponse {
@@ -60,7 +61,7 @@ export interface MsgCancelEnergyTransferRequestResponse {
 }
 
 function createBaseMsgPublishEnergyTransferOffer(): MsgPublishEnergyTransferOffer {
-  return { creator: "", chargerId: "", tariff: "", location: undefined };
+  return { creator: "", chargerId: "", tariff: "", location: undefined, name: "" };
 }
 
 export const MsgPublishEnergyTransferOffer = {
@@ -76,6 +77,9 @@ export const MsgPublishEnergyTransferOffer = {
     }
     if (message.location !== undefined) {
       Location.encode(message.location, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.name !== "") {
+      writer.uint32(42).string(message.name);
     }
     return writer;
   },
@@ -99,6 +103,9 @@ export const MsgPublishEnergyTransferOffer = {
         case 4:
           message.location = Location.decode(reader, reader.uint32());
           break;
+        case 5:
+          message.name = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -113,6 +120,7 @@ export const MsgPublishEnergyTransferOffer = {
       chargerId: isSet(object.chargerId) ? String(object.chargerId) : "",
       tariff: isSet(object.tariff) ? String(object.tariff) : "",
       location: isSet(object.location) ? Location.fromJSON(object.location) : undefined,
+      name: isSet(object.name) ? String(object.name) : "",
     };
   },
 
@@ -122,6 +130,7 @@ export const MsgPublishEnergyTransferOffer = {
     message.chargerId !== undefined && (obj.chargerId = message.chargerId);
     message.tariff !== undefined && (obj.tariff = message.tariff);
     message.location !== undefined && (obj.location = message.location ? Location.toJSON(message.location) : undefined);
+    message.name !== undefined && (obj.name = message.name);
     return obj;
   },
 
@@ -135,6 +144,7 @@ export const MsgPublishEnergyTransferOffer = {
     message.location = (object.location !== undefined && object.location !== null)
       ? Location.fromPartial(object.location)
       : undefined;
+    message.name = object.name ?? "";
     return message;
   },
 };

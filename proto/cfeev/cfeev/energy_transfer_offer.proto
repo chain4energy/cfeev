@@ -11,11 +11,19 @@ message EnergyTransferOffer {
   ChargerStatus chargerStatus = 4; 
   Location location = 5; 
   float tariff = 6; 
-  
+  string name = 7;
+  PlugType plugType = 8;
 }
 
 enum ChargerStatus {
     ACTIVE = 0;
     BUSY = 1;
     INACTIVE = 2;
+}
+
+enum PlugType {
+    Type1 = 0;
+    Type2 = 1; 
+    CHAdeMO = 2; 
+    CCS = 3;
 }

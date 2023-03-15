@@ -46,6 +46,8 @@ export interface CfeevEnergyTransferOffer {
 
   /** @format float */
   tariff?: number;
+  name?: string;
+  plugType?: CfeevPlugType;
 }
 
 export type CfeevMsgCancelEnergyTransferRequestResponse = object;
@@ -65,6 +67,13 @@ export type CfeevMsgStartEnergyTransferRequestResponse = object;
  * Params defines the parameters for the module.
  */
 export type CfeevParams = object;
+
+export enum CfeevPlugType {
+  Type1 = "Type1",
+  Type2 = "Type2",
+  CHAdeMO = "CHAdeMO",
+  CCS = "CCS",
+}
 
 export interface CfeevQueryAllEnergyTransferOfferResponse {
   EnergyTransferOffer?: CfeevEnergyTransferOffer[];

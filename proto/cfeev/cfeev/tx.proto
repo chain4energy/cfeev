@@ -21,6 +21,7 @@ message MsgPublishEnergyTransferOffer {
   string chargerId = 2;
   string tariff = 3;
   Location location = 4;
+  string name = 5;
 }
 
 message MsgPublishEnergyTransferOfferResponse {

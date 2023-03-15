@@ -5,6 +5,7 @@ import (
 
 	"cfeev/x/cfeev/types"
 	"encoding/json"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
@@ -17,11 +18,12 @@ func CmdPublishEnergyTransferOffer() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "publish-energy-transfer-offer [charger-id] [tariff] [location]",
 		Short: "Broadcast message publish-energy-transfer-offer",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argChargerId := args[0]
 			argTariff := args[1]
 			argLocation := new(types.Location)
+			argName := args[3]
 			err = json.Unmarshal([]byte(args[2]), argLocation)
 			if err != nil {
 				return err
@@ -37,6 +39,7 @@ func CmdPublishEnergyTransferOffer() *cobra.Command {
 				argChargerId,
 				argTariff,
 				argLocation,
+				argName,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

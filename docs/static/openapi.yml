@@ -260,6 +260,16 @@ paths:
                     tariff:
                       type: number
                       format: float
+                    name:
+                      type: string
+                    plugType:
+                      type: string
+                      enum:
+                        - Type1
+                        - Type2
+                        - CHAdeMO
+                        - CCS
+                      default: Type1
               pagination:
                 type: object
                 properties:
@@ -402,6 +412,16 @@ paths:
                   tariff:
                     type: number
                     format: float
+                  name:
+                    type: string
+                  plugType:
+                    type: string
+                    enum:
+                      - Type1
+                      - Type2
+                      - CHAdeMO
+                      - CCS
+                    default: Type1
         default:
           description: An unexpected error response.
           schema:
@@ -45209,6 +45229,16 @@ definitions:
       tariff:
         type: number
         format: float
+      name:
+        type: string
+      plugType:
+        type: string
+        enum:
+          - Type1
+          - Type2
+          - CHAdeMO
+          - CCS
+        default: Type1
   cfeev.cfeev.Location:
     type: object
     properties:
@@ -45233,6 +45263,14 @@ definitions:
   cfeev.cfeev.Params:
     type: object
     description: Params defines the parameters for the module.
+  cfeev.cfeev.PlugType:
+    type: string
+    enum:
+      - Type1
+      - Type2
+      - CHAdeMO
+      - CCS
+    default: Type1
   cfeev.cfeev.QueryAllEnergyTransferOfferResponse:
     type: object
     properties:
@@ -45265,6 +45303,16 @@ definitions:
             tariff:
               type: number
               format: float
+            name:
+              type: string
+            plugType:
+              type: string
+              enum:
+                - Type1
+                - Type2
+                - CHAdeMO
+                - CCS
+              default: Type1
       pagination:
         type: object
         properties:
@@ -45384,6 +45432,16 @@ definitions:
           tariff:
             type: number
             format: float
+          name:
+            type: string
+          plugType:
+            type: string
+            enum:
+              - Type1
+              - Type2
+              - CHAdeMO
+              - CCS
+            default: Type1
   cfeev.cfeev.QueryGetEnergyTransferResponse:
     type: object
     properties:

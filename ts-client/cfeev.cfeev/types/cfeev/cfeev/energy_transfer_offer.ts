@@ -44,6 +44,51 @@ export function chargerStatusToJSON(object: ChargerStatus): string {
   }
 }
 
+export enum PlugType {
+  Type1 = 0,
+  Type2 = 1,
+  CHAdeMO = 2,
+  CCS = 3,
+  UNRECOGNIZED = -1,
+}
+
+export function plugTypeFromJSON(object: any): PlugType {
+  switch (object) {
+    case 0:
+    case "Type1":
+      return PlugType.Type1;
+    case 1:
+    case "Type2":
+      return PlugType.Type2;
+    case 2:
+    case "CHAdeMO":
+      return PlugType.CHAdeMO;
+    case 3:
+    case "CCS":
+      return PlugType.CCS;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return PlugType.UNRECOGNIZED;
+  }
+}
+
+export function plugTypeToJSON(object: PlugType): string {
+  switch (object) {
+    case PlugType.Type1:
+      return "Type1";
+    case PlugType.Type2:
+      return "Type2";
+    case PlugType.CHAdeMO:
+      return "CHAdeMO";
+    case PlugType.CCS:
+      return "CCS";
+    case PlugType.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+
 export interface EnergyTransferOffer {
   id: number;
   owner: string;
@@ -51,10 +96,12 @@ export interface EnergyTransferOffer {
   chargerStatus: ChargerStatus;
   location: Location | undefined;
   tariff: number;
+  name: string;
+  plugType: PlugType;
 }
 
 function createBaseEnergyTransferOffer(): EnergyTransferOffer {
-  return { id: 0, owner: "", chargerId: "", chargerStatus: 0, location: undefined, tariff: 0 };
+  return { id: 0, owner: "", chargerId: "", chargerStatus: 0, location: undefined, tariff: 0, name: "", plugType: 0 };
 }
 
 export const EnergyTransferOffer = {
@@ -76,6 +123,12 @@ export const EnergyTransferOffer = {
     }
     if (message.tariff !== 0) {
       writer.uint32(53).float(message.tariff);
+    }
+    if (message.name !== "") {
+      writer.uint32(58).string(message.name);
+    }
+    if (message.plugType !== 0) {
+      writer.uint32(64).int32(message.plugType);
     }
     return writer;
   },
@@ -105,6 +158,12 @@ export const EnergyTransferOffer = {
         case 6:
           message.tariff = reader.float();
           break;
+        case 7:
+          message.name = reader.string();
+          break;
+        case 8:
+          message.plugType = reader.int32() as any;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -121,6 +180,8 @@ export const EnergyTransferOffer = {
       chargerStatus: isSet(object.chargerStatus) ? chargerStatusFromJSON(object.chargerStatus) : 0,
       location: isSet(object.location) ? Location.fromJSON(object.location) : undefined,
       tariff: isSet(object.tariff) ? Number(object.tariff) : 0,
+      name: isSet(object.name) ? String(object.name) : "",
+      plugType: isSet(object.plugType) ? plugTypeFromJSON(object.plugType) : 0,
     };
   },
 
@@ -132,6 +193,8 @@ export const EnergyTransferOffer = {
     message.chargerStatus !== undefined && (obj.chargerStatus = chargerStatusToJSON(message.chargerStatus));
     message.location !== undefined && (obj.location = message.location ? Location.toJSON(message.location) : undefined);
     message.tariff !== undefined && (obj.tariff = message.tariff);
+    message.name !== undefined && (obj.name = message.name);
+    message.plugType !== undefined && (obj.plugType = plugTypeToJSON(message.plugType));
     return obj;
   },
 
@@ -145,6 +208,8 @@ export const EnergyTransferOffer = {
       ? Location.fromPartial(object.location)
       : undefined;
     message.tariff = object.tariff ?? 0;
+    message.name = object.name ?? "";
+    message.plugType = object.plugType ?? 0;
     return message;
   },
 };
