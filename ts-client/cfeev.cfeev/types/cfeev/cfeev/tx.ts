@@ -1,6 +1,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { PlugType, plugTypeFromJSON, plugTypeToJSON } from "./energy_transfer_offer";
 import { Location } from "./location";
 
 export const protobufPackage = "cfeev.cfeev";
@@ -11,6 +12,7 @@ export interface MsgPublishEnergyTransferOffer {
   tariff: string;
   location: Location | undefined;
   name: string;
+  plugType: PlugType;
 }
 
 export interface MsgPublishEnergyTransferOfferResponse {
@@ -61,7 +63,7 @@ export interface MsgCancelEnergyTransferRequestResponse {
 }
 
 function createBaseMsgPublishEnergyTransferOffer(): MsgPublishEnergyTransferOffer {
-  return { creator: "", chargerId: "", tariff: "", location: undefined, name: "" };
+  return { creator: "", chargerId: "", tariff: "", location: undefined, name: "", plugType: 0 };
 }
 
 export const MsgPublishEnergyTransferOffer = {
@@ -80,6 +82,9 @@ export const MsgPublishEnergyTransferOffer = {
     }
     if (message.name !== "") {
       writer.uint32(42).string(message.name);
+    }
+    if (message.plugType !== 0) {
+      writer.uint32(48).int32(message.plugType);
     }
     return writer;
   },
@@ -106,6 +111,9 @@ export const MsgPublishEnergyTransferOffer = {
         case 5:
           message.name = reader.string();
           break;
+        case 6:
+          message.plugType = reader.int32() as any;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -121,6 +129,7 @@ export const MsgPublishEnergyTransferOffer = {
       tariff: isSet(object.tariff) ? String(object.tariff) : "",
       location: isSet(object.location) ? Location.fromJSON(object.location) : undefined,
       name: isSet(object.name) ? String(object.name) : "",
+      plugType: isSet(object.plugType) ? plugTypeFromJSON(object.plugType) : 0,
     };
   },
 
@@ -131,6 +140,7 @@ export const MsgPublishEnergyTransferOffer = {
     message.tariff !== undefined && (obj.tariff = message.tariff);
     message.location !== undefined && (obj.location = message.location ? Location.toJSON(message.location) : undefined);
     message.name !== undefined && (obj.name = message.name);
+    message.plugType !== undefined && (obj.plugType = plugTypeToJSON(message.plugType));
     return obj;
   },
 
@@ -145,6 +155,7 @@ export const MsgPublishEnergyTransferOffer = {
       ? Location.fromPartial(object.location)
       : undefined;
     message.name = object.name ?? "";
+    message.plugType = object.plugType ?? 0;
     return message;
   },
 };

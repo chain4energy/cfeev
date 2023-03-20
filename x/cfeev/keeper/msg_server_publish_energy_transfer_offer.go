@@ -37,6 +37,7 @@ func (k msgServer) PublishEnergyTransferOffer(goCtx context.Context, msg *types.
 		Location:      msg.GetLocation(),
 		Tariff:        tariffValue32,
 		Name:          msg.GetName(),
+		PlugType:      msg.GetPlugType(),
 	}
 
 	id := k.AppendEnergyTransferOffer(ctx, energyTransferOffer)

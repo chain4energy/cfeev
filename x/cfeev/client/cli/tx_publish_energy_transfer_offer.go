@@ -18,7 +18,7 @@ func CmdPublishEnergyTransferOffer() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "publish-energy-transfer-offer [charger-id] [tariff] [location]",
 		Short: "Broadcast message publish-energy-transfer-offer",
-		Args:  cobra.ExactArgs(4),
+		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argChargerId := args[0]
 			argTariff := args[1]
@@ -28,6 +28,14 @@ func CmdPublishEnergyTransferOffer() *cobra.Command {
 			if err != nil {
 				return err
 			}
+
+			// handle plug type enum values
+			i, err := strconv.ParseInt(args[4], 10, 64)
+			if err != nil {
+				return err
+			}
+			i32 := int32(i)
+			argPlugType := types.PlugType(i32)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -40,6 +48,7 @@ func CmdPublishEnergyTransferOffer() *cobra.Command {
 				argTariff,
 				argLocation,
 				argName,
+				argPlugType,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

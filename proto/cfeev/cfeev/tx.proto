@@ -3,6 +3,7 @@ package cfeev.cfeev;
 
 // this line is used by starport scaffolding # proto/tx/import
 import "cfeev/cfeev/location.proto";
+import "cfeev/cfeev/energy_transfer_offer.proto";
 
 option go_package = "cfeev/x/cfeev/types";
 
@@ -22,6 +23,7 @@ message MsgPublishEnergyTransferOffer {
   string tariff = 3;
   Location location = 4;
   string name = 5;
+  PlugType plugType = 6;
 }
 
 message MsgPublishEnergyTransferOfferResponse {
