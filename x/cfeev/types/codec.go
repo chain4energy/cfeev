@@ -13,6 +13,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgEnergyTransferStartedRequest{}, "cfeev/EnergyTransferStartedRequest", nil)
 	cdc.RegisterConcrete(&MsgEnergyTransferCompletedRequest{}, "cfeev/EnergyTransferCompletedRequest", nil)
 	cdc.RegisterConcrete(&MsgCancelEnergyTransferRequest{}, "cfeev/CancelEnergyTransferRequest", nil)
+	cdc.RegisterConcrete(&MsgRemoveEnergyOffer{}, "cfeev/RemoveEnergyOffer", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -31,6 +32,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCancelEnergyTransferRequest{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgRemoveEnergyOffer{},
 	)
 	// this line is used by starport scaffolding # 3
 

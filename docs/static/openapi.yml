@@ -45258,6 +45258,8 @@ definitions:
       id:
         type: string
         format: uint64
+  cfeev.cfeev.MsgRemoveEnergyOfferResponse:
+    type: object
   cfeev.cfeev.MsgStartEnergyTransferRequestResponse:
     type: object
   cfeev.cfeev.Params:

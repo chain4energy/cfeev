@@ -107,6 +107,7 @@ import (
 	cfeevmodule "cfeev/x/cfeev"
 	cfeevmodulekeeper "cfeev/x/cfeev/keeper"
 	cfeevmoduletypes "cfeev/x/cfeev/types"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	appparams "cfeev/app/params"
@@ -114,7 +115,7 @@ import (
 )
 
 const (
-	AccountAddressPrefix = "cosmos"
+	AccountAddressPrefix = "c4e"
 	Name                 = "cfeev"
 )
 

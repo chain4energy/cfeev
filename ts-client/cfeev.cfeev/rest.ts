@@ -61,6 +61,8 @@ export interface CfeevMsgPublishEnergyTransferOfferResponse {
   id?: string;
 }
 
+export type CfeevMsgRemoveEnergyOfferResponse = object;
+
 export type CfeevMsgStartEnergyTransferRequestResponse = object;
 
 /**
