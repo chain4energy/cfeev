@@ -9,46 +9,41 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 func (k msgServer) EnergyTransferCompletedRequest(goCtx context.Context, msg *types.MsgEnergyTransferCompletedRequest) (*types.MsgEnergyTransferCompletedRequestResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	energyTransfer, found := k.GetEnergyTransfer(ctx, msg.EnergyTransferId)
+	energyTransferObj, found := k.GetEnergyTransfer(ctx, msg.EnergyTransferId)
 	if !found {
 		return nil, sdkerrors.Wrap(types.ErrEnergyTransferNotFound, "energy transfer not found")
 	}
 
-	// used units
-	usedServiceUnits64, err := strconv.ParseFloat(msg.UsedServiceUnits, 32)
-	usedServiceUnits32 := float32(usedServiceUnits64)
-	if err != nil {
-		return nil, status.Error(codes.InvalidArgument, "invalid format of used service units")
-	}
+	var err error
+	usedServiceUnits := msg.GetUsedServiceUnits()
 
-	if energyTransfer.EnergyToTransfer == usedServiceUnits32 {
+	if energyTransferObj.EnergyToTransfer == usedServiceUnits {
 		// send callateral to CP owner's account
-		err = k.sendCollateralToTargetAccount(ctx, energyTransfer.OwnerAccountAddress, "1000token")
-		energyTransfer.Status = types.TransferStatus_PAID
-	} else if energyTransfer.EnergyToTransfer > usedServiceUnits32 {
-		x := usedServiceUnits32 / energyTransfer.EnergyToTransfer
-		y := float64(x)
-		// round float to 3 decimal places
-		z := math.Floor(y*1000) / 1000
-		tokensSpentInt := int(z * 1000)
-		// used tokens
-		var usedTokens string
-		usedTokens = strconv.Itoa(tokensSpentInt)
-		usedTokens = usedTokens + "token"
-		err = k.sendCollateralToTargetAccount(ctx, energyTransfer.OwnerAccountAddress, usedTokens)
-		energyTransfer.Status = types.TransferStatus_PAID
-		// unused tokens
-		var unusedTokens string
-		unusedTokens = strconv.Itoa(1000 - tokensSpentInt)
-		unusedTokens = unusedTokens + "token"
-		err = k.sendCollateralToTargetAccount(ctx, energyTransfer.DriverAccountAddress, unusedTokens)
+		coinsToTransfer := strconv.FormatInt(int64(energyTransferObj.GetCollateral()), 10) + "uc4e"
+		err = k.sendCollateralToTargetAccount(ctx, energyTransferObj.OwnerAccountAddress, coinsToTransfer)
+		energyTransferObj.Status = types.TransferStatus_PAID
+	} else if energyTransferObj.EnergyToTransfer > usedServiceUnits {
+		// x := usedServiceUnits32 / energyTransfer.EnergyToTransfer
+		// y := float64(x)
+		// // round float to 3 decimal places
+		// z := math.Floor(y*1000) / 1000
+		// tokensSpentInt := int(z * 1000)
+		// // used tokens
+		// var usedTokens string
+		// usedTokens = strconv.Itoa(tokensSpentInt)
+		// usedTokens = usedTokens + "token"
+		// err = k.sendCollateralToTargetAccount(ctx, energyTransfer.OwnerAccountAddress, usedTokens)
+		// energyTransfer.Status = types.TransferStatus_PAID
+		// // unused tokens
+		// var unusedTokens string
+		// unusedTokens = strconv.Itoa(1000 - tokensSpentInt)
+		// unusedTokens = unusedTokens + "token"
+		// err = k.sendCollateralToTargetAccount(ctx, energyTransfer.DriverAccountAddress, unusedTokens)
 	}
 
 	if err != nil {
@@ -56,7 +51,7 @@ func (k msgServer) EnergyTransferCompletedRequest(goCtx context.Context, msg *ty
 	}
 
 	// get energy transfer offer object by offer id
-	offer, found := k.GetEnergyTransferOffer(ctx, energyTransfer.EnergyTransferOfferId)
+	offer, found := k.GetEnergyTransferOffer(ctx, energyTransferObj.EnergyTransferOfferId)
 	if !found {
 		return nil, sdkerrors.Wrap(types.ErrEnergyTransferOfferNotFound, "energy transfer offer not found")
 	}
@@ -64,7 +59,7 @@ func (k msgServer) EnergyTransferCompletedRequest(goCtx context.Context, msg *ty
 
 	// update both entities
 	k.SetEnergyTransferOffer(ctx, offer)
-	k.SetEnergyTransfer(ctx, energyTransfer)
+	k.SetEnergyTransfer(ctx, energyTransferObj)
 
 	// TODO: Handling the response
 	return &types.MsgEnergyTransferCompletedRequestResponse{}, nil

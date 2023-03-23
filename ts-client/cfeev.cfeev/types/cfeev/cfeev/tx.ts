@@ -1,6 +1,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Coin } from "../../cosmos/base/v1beta1/coin";
 import { PlugType, plugTypeFromJSON, plugTypeToJSON } from "./energy_transfer_offer";
 import { Location } from "./location";
 
@@ -9,7 +10,7 @@ export const protobufPackage = "cfeev.cfeev";
 export interface MsgPublishEnergyTransferOffer {
   creator: string;
   chargerId: string;
-  tariff: string;
+  tariff: number;
   location: Location | undefined;
   name: string;
   plugType: PlugType;
@@ -25,6 +26,8 @@ export interface MsgStartEnergyTransferRequest {
   chargerId: string;
   ownerAccountAddress: string;
   offeredTariff: string;
+  collateral: Coin | undefined;
+  energyToTransfer: number;
 }
 
 export interface MsgStartEnergyTransferRequestResponse {
@@ -45,7 +48,7 @@ export interface MsgEnergyTransferCompletedRequest {
   creator: string;
   energyTransferId: number;
   chargerId: string;
-  usedServiceUnits: string;
+  usedServiceUnits: number;
   info: string;
 }
 
@@ -72,7 +75,7 @@ export interface MsgRemoveEnergyOfferResponse {
 }
 
 function createBaseMsgPublishEnergyTransferOffer(): MsgPublishEnergyTransferOffer {
-  return { creator: "", chargerId: "", tariff: "", location: undefined, name: "", plugType: 0 };
+  return { creator: "", chargerId: "", tariff: 0, location: undefined, name: "", plugType: 0 };
 }
 
 export const MsgPublishEnergyTransferOffer = {
@@ -83,8 +86,8 @@ export const MsgPublishEnergyTransferOffer = {
     if (message.chargerId !== "") {
       writer.uint32(18).string(message.chargerId);
     }
-    if (message.tariff !== "") {
-      writer.uint32(26).string(message.tariff);
+    if (message.tariff !== 0) {
+      writer.uint32(24).int32(message.tariff);
     }
     if (message.location !== undefined) {
       Location.encode(message.location, writer.uint32(34).fork()).ldelim();
@@ -112,7 +115,7 @@ export const MsgPublishEnergyTransferOffer = {
           message.chargerId = reader.string();
           break;
         case 3:
-          message.tariff = reader.string();
+          message.tariff = reader.int32();
           break;
         case 4:
           message.location = Location.decode(reader, reader.uint32());
@@ -135,7 +138,7 @@ export const MsgPublishEnergyTransferOffer = {
     return {
       creator: isSet(object.creator) ? String(object.creator) : "",
       chargerId: isSet(object.chargerId) ? String(object.chargerId) : "",
-      tariff: isSet(object.tariff) ? String(object.tariff) : "",
+      tariff: isSet(object.tariff) ? Number(object.tariff) : 0,
       location: isSet(object.location) ? Location.fromJSON(object.location) : undefined,
       name: isSet(object.name) ? String(object.name) : "",
       plugType: isSet(object.plugType) ? plugTypeFromJSON(object.plugType) : 0,
@@ -146,7 +149,7 @@ export const MsgPublishEnergyTransferOffer = {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
     message.chargerId !== undefined && (obj.chargerId = message.chargerId);
-    message.tariff !== undefined && (obj.tariff = message.tariff);
+    message.tariff !== undefined && (obj.tariff = Math.round(message.tariff));
     message.location !== undefined && (obj.location = message.location ? Location.toJSON(message.location) : undefined);
     message.name !== undefined && (obj.name = message.name);
     message.plugType !== undefined && (obj.plugType = plugTypeToJSON(message.plugType));
@@ -159,7 +162,7 @@ export const MsgPublishEnergyTransferOffer = {
     const message = createBaseMsgPublishEnergyTransferOffer();
     message.creator = object.creator ?? "";
     message.chargerId = object.chargerId ?? "";
-    message.tariff = object.tariff ?? "";
+    message.tariff = object.tariff ?? 0;
     message.location = (object.location !== undefined && object.location !== null)
       ? Location.fromPartial(object.location)
       : undefined;
@@ -219,7 +222,15 @@ export const MsgPublishEnergyTransferOfferResponse = {
 };
 
 function createBaseMsgStartEnergyTransferRequest(): MsgStartEnergyTransferRequest {
-  return { creator: "", energyTransferOfferId: 0, chargerId: "", ownerAccountAddress: "", offeredTariff: "" };
+  return {
+    creator: "",
+    energyTransferOfferId: 0,
+    chargerId: "",
+    ownerAccountAddress: "",
+    offeredTariff: "",
+    collateral: undefined,
+    energyToTransfer: 0,
+  };
 }
 
 export const MsgStartEnergyTransferRequest = {
@@ -238,6 +249,12 @@ export const MsgStartEnergyTransferRequest = {
     }
     if (message.offeredTariff !== "") {
       writer.uint32(42).string(message.offeredTariff);
+    }
+    if (message.collateral !== undefined) {
+      Coin.encode(message.collateral, writer.uint32(50).fork()).ldelim();
+    }
+    if (message.energyToTransfer !== 0) {
+      writer.uint32(56).int32(message.energyToTransfer);
     }
     return writer;
   },
@@ -264,6 +281,12 @@ export const MsgStartEnergyTransferRequest = {
         case 5:
           message.offeredTariff = reader.string();
           break;
+        case 6:
+          message.collateral = Coin.decode(reader, reader.uint32());
+          break;
+        case 7:
+          message.energyToTransfer = reader.int32();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -279,6 +302,8 @@ export const MsgStartEnergyTransferRequest = {
       chargerId: isSet(object.chargerId) ? String(object.chargerId) : "",
       ownerAccountAddress: isSet(object.ownerAccountAddress) ? String(object.ownerAccountAddress) : "",
       offeredTariff: isSet(object.offeredTariff) ? String(object.offeredTariff) : "",
+      collateral: isSet(object.collateral) ? Coin.fromJSON(object.collateral) : undefined,
+      energyToTransfer: isSet(object.energyToTransfer) ? Number(object.energyToTransfer) : 0,
     };
   },
 
@@ -290,6 +315,9 @@ export const MsgStartEnergyTransferRequest = {
     message.chargerId !== undefined && (obj.chargerId = message.chargerId);
     message.ownerAccountAddress !== undefined && (obj.ownerAccountAddress = message.ownerAccountAddress);
     message.offeredTariff !== undefined && (obj.offeredTariff = message.offeredTariff);
+    message.collateral !== undefined
+      && (obj.collateral = message.collateral ? Coin.toJSON(message.collateral) : undefined);
+    message.energyToTransfer !== undefined && (obj.energyToTransfer = Math.round(message.energyToTransfer));
     return obj;
   },
 
@@ -302,6 +330,10 @@ export const MsgStartEnergyTransferRequest = {
     message.chargerId = object.chargerId ?? "";
     message.ownerAccountAddress = object.ownerAccountAddress ?? "";
     message.offeredTariff = object.offeredTariff ?? "";
+    message.collateral = (object.collateral !== undefined && object.collateral !== null)
+      ? Coin.fromPartial(object.collateral)
+      : undefined;
+    message.energyToTransfer = object.energyToTransfer ?? 0;
     return message;
   },
 };
@@ -475,7 +507,7 @@ export const MsgEnergyTransferStartedRequestResponse = {
 };
 
 function createBaseMsgEnergyTransferCompletedRequest(): MsgEnergyTransferCompletedRequest {
-  return { creator: "", energyTransferId: 0, chargerId: "", usedServiceUnits: "", info: "" };
+  return { creator: "", energyTransferId: 0, chargerId: "", usedServiceUnits: 0, info: "" };
 }
 
 export const MsgEnergyTransferCompletedRequest = {
@@ -489,8 +521,8 @@ export const MsgEnergyTransferCompletedRequest = {
     if (message.chargerId !== "") {
       writer.uint32(26).string(message.chargerId);
     }
-    if (message.usedServiceUnits !== "") {
-      writer.uint32(34).string(message.usedServiceUnits);
+    if (message.usedServiceUnits !== 0) {
+      writer.uint32(32).int32(message.usedServiceUnits);
     }
     if (message.info !== "") {
       writer.uint32(42).string(message.info);
@@ -515,7 +547,7 @@ export const MsgEnergyTransferCompletedRequest = {
           message.chargerId = reader.string();
           break;
         case 4:
-          message.usedServiceUnits = reader.string();
+          message.usedServiceUnits = reader.int32();
           break;
         case 5:
           message.info = reader.string();
@@ -533,7 +565,7 @@ export const MsgEnergyTransferCompletedRequest = {
       creator: isSet(object.creator) ? String(object.creator) : "",
       energyTransferId: isSet(object.energyTransferId) ? Number(object.energyTransferId) : 0,
       chargerId: isSet(object.chargerId) ? String(object.chargerId) : "",
-      usedServiceUnits: isSet(object.usedServiceUnits) ? String(object.usedServiceUnits) : "",
+      usedServiceUnits: isSet(object.usedServiceUnits) ? Number(object.usedServiceUnits) : 0,
       info: isSet(object.info) ? String(object.info) : "",
     };
   },
@@ -543,7 +575,7 @@ export const MsgEnergyTransferCompletedRequest = {
     message.creator !== undefined && (obj.creator = message.creator);
     message.energyTransferId !== undefined && (obj.energyTransferId = Math.round(message.energyTransferId));
     message.chargerId !== undefined && (obj.chargerId = message.chargerId);
-    message.usedServiceUnits !== undefined && (obj.usedServiceUnits = message.usedServiceUnits);
+    message.usedServiceUnits !== undefined && (obj.usedServiceUnits = Math.round(message.usedServiceUnits));
     message.info !== undefined && (obj.info = message.info);
     return obj;
   },
@@ -555,7 +587,7 @@ export const MsgEnergyTransferCompletedRequest = {
     message.creator = object.creator ?? "";
     message.energyTransferId = object.energyTransferId ?? 0;
     message.chargerId = object.chargerId ?? "";
-    message.usedServiceUnits = object.usedServiceUnits ?? "";
+    message.usedServiceUnits = object.usedServiceUnits ?? 0;
     message.info = object.info ?? "";
     return message;
   },

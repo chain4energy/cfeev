@@ -1,9 +1,9 @@
 version: 1
 accounts:
   - name: alice
-    coins: ["20000token", "200000000stake"]
+    coins: ["20000token", "200000000stake", "40000uc4e"]
   - name: bob
-    coins: ["10000token", "100000000stake"]
+    coins: ["10000token", "100000000stake", "40000uc4e"]
 validators:
   - name: alice
     bonded: "100000000stake"

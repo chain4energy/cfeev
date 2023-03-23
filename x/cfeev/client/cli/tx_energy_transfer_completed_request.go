@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"cfeev/x/cfeev/types"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
@@ -24,7 +25,10 @@ func CmdEnergyTransferCompletedRequest() *cobra.Command {
 				return err
 			}
 			argChargerId := args[1]
-			argUsedServiceUnits := args[2]
+			argUsedServiceUnits, err := cast.ToInt32E(args[2])
+			if err != nil {
+				return err
+			}
 			argInfo := args[3]
 
 			clientCtx, err := client.GetClientTxContext(cmd)

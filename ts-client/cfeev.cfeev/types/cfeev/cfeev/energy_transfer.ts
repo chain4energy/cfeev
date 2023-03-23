@@ -93,7 +93,7 @@ export const EnergyTransfer = {
       writer.uint32(42).string(message.driverAccountAddress);
     }
     if (message.offeredTariff !== 0) {
-      writer.uint32(53).float(message.offeredTariff);
+      writer.uint32(48).int32(message.offeredTariff);
     }
     if (message.status !== 0) {
       writer.uint32(56).int32(message.status);
@@ -102,7 +102,7 @@ export const EnergyTransfer = {
       writer.uint32(64).uint64(message.collateral);
     }
     if (message.energyToTransfer !== 0) {
-      writer.uint32(77).float(message.energyToTransfer);
+      writer.uint32(72).int32(message.energyToTransfer);
     }
     return writer;
   },
@@ -130,7 +130,7 @@ export const EnergyTransfer = {
           message.driverAccountAddress = reader.string();
           break;
         case 6:
-          message.offeredTariff = reader.float();
+          message.offeredTariff = reader.int32();
           break;
         case 7:
           message.status = reader.int32() as any;
@@ -139,7 +139,7 @@ export const EnergyTransfer = {
           message.collateral = longToNumber(reader.uint64() as Long);
           break;
         case 9:
-          message.energyToTransfer = reader.float();
+          message.energyToTransfer = reader.int32();
           break;
         default:
           reader.skipType(tag & 7);
@@ -171,10 +171,10 @@ export const EnergyTransfer = {
     message.chargerId !== undefined && (obj.chargerId = message.chargerId);
     message.ownerAccountAddress !== undefined && (obj.ownerAccountAddress = message.ownerAccountAddress);
     message.driverAccountAddress !== undefined && (obj.driverAccountAddress = message.driverAccountAddress);
-    message.offeredTariff !== undefined && (obj.offeredTariff = message.offeredTariff);
+    message.offeredTariff !== undefined && (obj.offeredTariff = Math.round(message.offeredTariff));
     message.status !== undefined && (obj.status = transferStatusToJSON(message.status));
     message.collateral !== undefined && (obj.collateral = Math.round(message.collateral));
-    message.energyToTransfer !== undefined && (obj.energyToTransfer = message.energyToTransfer);
+    message.energyToTransfer !== undefined && (obj.energyToTransfer = Math.round(message.energyToTransfer));
     return obj;
   },
 

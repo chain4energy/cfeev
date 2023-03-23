@@ -9,13 +9,15 @@ const TypeMsgStartEnergyTransferRequest = "start_energy_transfer_request"
 
 var _ sdk.Msg = &MsgStartEnergyTransferRequest{}
 
-func NewMsgStartEnergyTransferRequest(creator string, energyTransferOfferId uint64, chargerId string, ownerAccountAddress string, offeredTariff string) *MsgStartEnergyTransferRequest {
+func NewMsgStartEnergyTransferRequest(creator string, energyTransferOfferId uint64, chargerId string, ownerAccountAddress string, offeredTariff string, collateral *sdk.Coin, energyToTransfer int32) *MsgStartEnergyTransferRequest {
 	return &MsgStartEnergyTransferRequest{
 		Creator:               creator,
 		EnergyTransferOfferId: energyTransferOfferId,
 		ChargerId:             chargerId,
 		OwnerAccountAddress:   ownerAccountAddress,
 		OfferedTariff:         offeredTariff,
+		Collateral:            collateral,
+		EnergyToTransfer:      energyToTransfer,
 	}
 }
 

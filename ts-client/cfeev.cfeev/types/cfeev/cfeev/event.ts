@@ -24,7 +24,7 @@ export const EnergyTransferCreatedEvent = {
       writer.uint32(18).string(message.chargerId);
     }
     if (message.energyAmountToTransfer !== 0) {
-      writer.uint32(29).float(message.energyAmountToTransfer);
+      writer.uint32(24).int32(message.energyAmountToTransfer);
     }
     if (message.action !== "") {
       writer.uint32(34).string(message.action);
@@ -46,7 +46,7 @@ export const EnergyTransferCreatedEvent = {
           message.chargerId = reader.string();
           break;
         case 3:
-          message.energyAmountToTransfer = reader.float();
+          message.energyAmountToTransfer = reader.int32();
           break;
         case 4:
           message.action = reader.string();
@@ -72,7 +72,8 @@ export const EnergyTransferCreatedEvent = {
     const obj: any = {};
     message.energyTransferId !== undefined && (obj.energyTransferId = Math.round(message.energyTransferId));
     message.chargerId !== undefined && (obj.chargerId = message.chargerId);
-    message.energyAmountToTransfer !== undefined && (obj.energyAmountToTransfer = message.energyAmountToTransfer);
+    message.energyAmountToTransfer !== undefined
+      && (obj.energyAmountToTransfer = Math.round(message.energyAmountToTransfer));
     message.action !== undefined && (obj.action = message.action);
     return obj;
   },

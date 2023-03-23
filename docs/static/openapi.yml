@@ -32,8 +32,8 @@ paths:
                     driverAccountAddress:
                       type: string
                     offeredTariff:
-                      type: number
-                      format: float
+                      type: integer
+                      format: int32
                     status:
                       type: string
                       enum:
@@ -46,8 +46,8 @@ paths:
                       type: string
                       format: uint64
                     energyToTransfer:
-                      type: number
-                      format: float
+                      type: integer
+                      format: int32
               pagination:
                 type: object
                 properties:
@@ -179,8 +179,8 @@ paths:
                   driverAccountAddress:
                     type: string
                   offeredTariff:
-                    type: number
-                    format: float
+                    type: integer
+                    format: int32
                   status:
                     type: string
                     enum:
@@ -193,8 +193,8 @@ paths:
                     type: string
                     format: uint64
                   energyToTransfer:
-                    type: number
-                    format: float
+                    type: integer
+                    format: int32
         default:
           description: An unexpected error response.
           schema:
@@ -258,8 +258,8 @@ paths:
                         longitude:
                           type: string
                     tariff:
-                      type: number
-                      format: float
+                      type: integer
+                      format: int32
                     name:
                       type: string
                     plugType:
@@ -410,8 +410,8 @@ paths:
                       longitude:
                         type: string
                   tariff:
-                    type: number
-                    format: float
+                    type: integer
+                    format: int32
                   name:
                     type: string
                   plugType:
@@ -45186,8 +45186,8 @@ definitions:
       driverAccountAddress:
         type: string
       offeredTariff:
-        type: number
-        format: float
+        type: integer
+        format: int32
       status:
         type: string
         enum:
@@ -45200,8 +45200,8 @@ definitions:
         type: string
         format: uint64
       energyToTransfer:
-        type: number
-        format: float
+        type: integer
+        format: int32
   cfeev.cfeev.EnergyTransferOffer:
     type: object
     properties:
@@ -45227,8 +45227,8 @@ definitions:
           longitude:
             type: string
       tariff:
-        type: number
-        format: float
+        type: integer
+        format: int32
       name:
         type: string
       plugType:
@@ -45307,8 +45307,8 @@ definitions:
                 longitude:
                   type: string
             tariff:
-              type: number
-              format: float
+              type: integer
+              format: int32
             name:
               type: string
             plugType:
@@ -45366,8 +45366,8 @@ definitions:
             driverAccountAddress:
               type: string
             offeredTariff:
-              type: number
-              format: float
+              type: integer
+              format: int32
             status:
               type: string
               enum:
@@ -45380,8 +45380,8 @@ definitions:
               type: string
               format: uint64
             energyToTransfer:
-              type: number
-              format: float
+              type: integer
+              format: int32
       pagination:
         type: object
         properties:
@@ -45436,8 +45436,8 @@ definitions:
               longitude:
                 type: string
           tariff:
-            type: number
-            format: float
+            type: integer
+            format: int32
           name:
             type: string
           plugType:
@@ -45467,8 +45467,8 @@ definitions:
           driverAccountAddress:
             type: string
           offeredTariff:
-            type: number
-            format: float
+            type: integer
+            format: int32
           status:
             type: string
             enum:
@@ -45481,8 +45481,8 @@ definitions:
             type: string
             format: uint64
           energyToTransfer:
-            type: number
-            format: float
+            type: integer
+            format: int32
   cfeev.cfeev.QueryParamsResponse:
     type: object
     properties:
@@ -45575,6 +45575,18 @@ definitions:
                repeated Bar results = 1;
                PageResponse page = 2;
        }
+  cosmos.base.v1beta1.Coin:
+    type: object
+    properties:
+      denom:
+        type: string
+      amount:
+        type: string
+    description: |-
+      Coin defines a token with a denomination and an amount.
+
+      NOTE: The amount field is an Int which implements the custom method
+      signatures required by gogoproto.
   google.protobuf.Any:
     type: object
     properties:
@@ -48337,18 +48349,6 @@ definitions:
     description: |-
       SendEnabled maps coin denom to a send_enabled status (whether a denom is
       sendable).
-  cosmos.base.v1beta1.Coin:
-    type: object
-    properties:
-      denom:
-        type: string
-      amount:
-        type: string
-    description: |-
-      Coin defines a token with a denomination and an amount.
-
-      NOTE: The amount field is an Int which implements the custom method
-      signatures required by gogoproto.
   cosmos.base.tendermint.v1beta1.ABCIQueryResponse:
     type: object
     properties:

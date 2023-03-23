@@ -4,7 +4,6 @@
 package types
 
 import (
-	encoding_binary "encoding/binary"
 	fmt "fmt"
 	proto "github.com/gogo/protobuf/proto"
 	io "io"
@@ -24,10 +23,10 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type EnergyTransferCreatedEvent struct {
-	EnergyTransferId       uint64  `protobuf:"varint,1,opt,name=energyTransferId,proto3" json:"energyTransferId,omitempty"`
-	ChargerId              string  `protobuf:"bytes,2,opt,name=chargerId,proto3" json:"chargerId,omitempty"`
-	EnergyAmountToTransfer float32 `protobuf:"fixed32,3,opt,name=energyAmountToTransfer,proto3" json:"energyAmountToTransfer,omitempty"`
-	Action                 string  `protobuf:"bytes,4,opt,name=action,proto3" json:"action,omitempty"`
+	EnergyTransferId       uint64 `protobuf:"varint,1,opt,name=energyTransferId,proto3" json:"energyTransferId,omitempty"`
+	ChargerId              string `protobuf:"bytes,2,opt,name=chargerId,proto3" json:"chargerId,omitempty"`
+	EnergyAmountToTransfer int32  `protobuf:"varint,3,opt,name=energyAmountToTransfer,proto3" json:"energyAmountToTransfer,omitempty"`
+	Action                 string `protobuf:"bytes,4,opt,name=action,proto3" json:"action,omitempty"`
 }
 
 func (m *EnergyTransferCreatedEvent) Reset()         { *m = EnergyTransferCreatedEvent{} }
@@ -77,7 +76,7 @@ func (m *EnergyTransferCreatedEvent) GetChargerId() string {
 	return ""
 }
 
-func (m *EnergyTransferCreatedEvent) GetEnergyAmountToTransfer() float32 {
+func (m *EnergyTransferCreatedEvent) GetEnergyAmountToTransfer() int32 {
 	if m != nil {
 		return m.EnergyAmountToTransfer
 	}
@@ -106,12 +105,12 @@ var fileDescriptor_ee03b44c928043b8 = []byte{
 	0x15, 0xa4, 0x43, 0x48, 0x8b, 0x4b, 0x20, 0x15, 0x45, 0xd6, 0x33, 0x45, 0x82, 0x51, 0x81, 0x51,
 	0x83, 0x25, 0x08, 0x43, 0x5c, 0x48, 0x86, 0x8b, 0x33, 0x39, 0x23, 0xb1, 0x28, 0x1d, 0xac, 0x88,
 	0x49, 0x81, 0x51, 0x83, 0x33, 0x08, 0x21, 0x20, 0x64, 0xc6, 0x25, 0x06, 0xd1, 0xe1, 0x98, 0x9b,
-	0x5f, 0x9a, 0x57, 0x12, 0x92, 0x0f, 0xd3, 0x29, 0xc1, 0xac, 0xc0, 0xa8, 0xc1, 0x14, 0x84, 0x43,
+	0x5f, 0x9a, 0x57, 0x12, 0x92, 0x0f, 0xd3, 0x29, 0xc1, 0xac, 0xc0, 0xa8, 0xc1, 0x1a, 0x84, 0x43,
 	0x56, 0x48, 0x8c, 0x8b, 0x2d, 0x31, 0xb9, 0x24, 0x33, 0x3f, 0x4f, 0x82, 0x05, 0x6c, 0x24, 0x94,
 	0xe7, 0xa4, 0x7b, 0xe2, 0x91, 0x1c, 0xe3, 0x85, 0x47, 0x72, 0x8c, 0x0f, 0x1e, 0xc9, 0x31, 0x4e,
 	0x78, 0x2c, 0xc7, 0x70, 0xe1, 0xb1, 0x1c, 0xc3, 0x8d, 0xc7, 0x72, 0x0c, 0x51, 0xc2, 0x10, 0x2f,
 	0x57, 0x40, 0xbd, 0x5e, 0x52, 0x59, 0x90, 0x5a, 0x9c, 0xc4, 0x06, 0xf6, 0xbb, 0x31, 0x20, 0x00,
-	0x00, 0xff, 0xff, 0x4f, 0xe2, 0xc1, 0xe3, 0x16, 0x01, 0x00, 0x00,
+	0x00, 0xff, 0xff, 0xcc, 0xa0, 0xf9, 0xc4, 0x16, 0x01, 0x00, 0x00,
 }
 
 func (m *EnergyTransferCreatedEvent) Marshal() (dAtA []byte, err error) {
@@ -142,10 +141,9 @@ func (m *EnergyTransferCreatedEvent) MarshalToSizedBuffer(dAtA []byte) (int, err
 		dAtA[i] = 0x22
 	}
 	if m.EnergyAmountToTransfer != 0 {
-		i -= 4
-		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.EnergyAmountToTransfer))))
+		i = encodeVarintEvent(dAtA, i, uint64(m.EnergyAmountToTransfer))
 		i--
-		dAtA[i] = 0x1d
+		dAtA[i] = 0x18
 	}
 	if len(m.ChargerId) > 0 {
 		i -= len(m.ChargerId)
@@ -187,7 +185,7 @@ func (m *EnergyTransferCreatedEvent) Size() (n int) {
 		n += 1 + l + sovEvent(uint64(l))
 	}
 	if m.EnergyAmountToTransfer != 0 {
-		n += 5
+		n += 1 + sovEvent(uint64(m.EnergyAmountToTransfer))
 	}
 	l = len(m.Action)
 	if l > 0 {
@@ -283,16 +281,24 @@ func (m *EnergyTransferCreatedEvent) Unmarshal(dAtA []byte) error {
 			m.ChargerId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
-			if wireType != 5 {
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EnergyAmountToTransfer", wireType)
 			}
-			var v uint32
-			if (iNdEx + 4) > l {
-				return io.ErrUnexpectedEOF
+			m.EnergyAmountToTransfer = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EnergyAmountToTransfer |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
 			}
-			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
-			iNdEx += 4
-			m.EnergyAmountToTransfer = float32(math.Float32frombits(v))
 		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Action", wireType)

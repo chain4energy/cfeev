@@ -4,6 +4,7 @@ package cfeev.cfeev;
 // this line is used by starport scaffolding # proto/tx/import
 import "cfeev/cfeev/location.proto";
 import "cfeev/cfeev/energy_transfer_offer.proto";
+import "cosmos/base/v1beta1/coin.proto";
 
 option go_package = "cfeev/x/cfeev/types";
 
@@ -21,7 +22,7 @@ service Msg {
 message MsgPublishEnergyTransferOffer {
   string creator = 1;
   string chargerId = 2;
-  string tariff = 3;
+  int32 tariff = 3;
   Location location = 4;
   string name = 5;
   PlugType plugType = 6;
@@ -37,6 +38,8 @@ message MsgStartEnergyTransferRequest {
   string chargerId = 3;
   string ownerAccountAddress = 4;
   string offeredTariff = 5;
+  cosmos.base.v1beta1.Coin collateral = 6;
+  int32 energyToTransfer = 7;
 }
 
 message MsgStartEnergyTransferRequestResponse {
@@ -57,7 +60,7 @@ message MsgEnergyTransferCompletedRequest {
   string creator = 1;
   uint64 energyTransferId = 2;
   string chargerId = 3;
-  string usedServiceUnits = 4;
+  int32 usedServiceUnits = 4;
   string info = 5;
 }
 

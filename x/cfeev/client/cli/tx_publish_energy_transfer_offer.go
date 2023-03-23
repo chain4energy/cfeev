@@ -9,6 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
 
@@ -21,7 +22,11 @@ func CmdPublishEnergyTransferOffer() *cobra.Command {
 		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argChargerId := args[0]
-			argTariff := args[1]
+			argTariff, err := cast.ToInt32E(args[1])
+			if err != nil {
+				return err
+			}
+
 			argLocation := new(types.Location)
 			argName := args[3]
 			err = json.Unmarshal([]byte(args[2]), argLocation)

@@ -9,10 +9,10 @@ message EnergyTransfer {
   string chargerId = 3; 
   string ownerAccountAddress = 4; 
   string driverAccountAddress = 5; 
-  float offeredTariff = 6; 
+  int32 offeredTariff = 6; 
   TransferStatus status = 7; 
   uint64 collateral = 8;
-  float energyToTransfer = 9;
+  int32 energyToTransfer = 9;
   
 }
 

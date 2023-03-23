@@ -9,7 +9,7 @@ const TypeMsgEnergyTransferCompletedRequest = "energy_transfer_completed_request
 
 var _ sdk.Msg = &MsgEnergyTransferCompletedRequest{}
 
-func NewMsgEnergyTransferCompletedRequest(creator string, energyTransferId uint64, chargerId string, usedServiceUnits string, info string) *MsgEnergyTransferCompletedRequest {
+func NewMsgEnergyTransferCompletedRequest(creator string, energyTransferId uint64, chargerId string, usedServiceUnits int32, info string) *MsgEnergyTransferCompletedRequest {
 	return &MsgEnergyTransferCompletedRequest{
 		Creator:          creator,
 		EnergyTransferId: energyTransferId,

@@ -9,7 +9,7 @@ const TypeMsgPublishEnergyTransferOffer = "publish_energy_transfer_offer"
 
 var _ sdk.Msg = &MsgPublishEnergyTransferOffer{}
 
-func NewMsgPublishEnergyTransferOffer(creator string, chargerId string, tariff string, location *Location, name string, plugType PlugType) *MsgPublishEnergyTransferOffer {
+func NewMsgPublishEnergyTransferOffer(creator string, chargerId string, tariff int32, location *Location, name string, plugType PlugType) *MsgPublishEnergyTransferOffer {
 	return &MsgPublishEnergyTransferOffer{
 		Creator:   creator,
 		ChargerId: chargerId,

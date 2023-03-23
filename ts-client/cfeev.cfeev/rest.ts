@@ -25,14 +25,14 @@ export interface CfeevEnergyTransfer {
   ownerAccountAddress?: string;
   driverAccountAddress?: string;
 
-  /** @format float */
+  /** @format int32 */
   offeredTariff?: number;
   status?: CfeevTransferStatus;
 
   /** @format uint64 */
   collateral?: string;
 
-  /** @format float */
+  /** @format int32 */
   energyToTransfer?: number;
 }
 
@@ -44,7 +44,7 @@ export interface CfeevEnergyTransferOffer {
   chargerStatus?: CfeevChargerStatus;
   location?: CfeevcfeevLocation;
 
-  /** @format float */
+  /** @format int32 */
   tariff?: number;
   name?: string;
   plugType?: CfeevPlugType;
@@ -147,6 +147,17 @@ export interface RpcStatus {
   code?: number;
   message?: string;
   details?: ProtobufAny[];
+}
+
+/**
+* Coin defines a token with a denomination and an amount.
+
+NOTE: The amount field is an Int which implements the custom method
+signatures required by gogoproto.
+*/
+export interface V1Beta1Coin {
+  denom?: string;
+  amount?: string;
 }
 
 /**

@@ -10,7 +10,7 @@ message EnergyTransferOffer {
   string chargerId = 3; 
   ChargerStatus chargerStatus = 4; 
   Location location = 5; 
-  float tariff = 6; 
+  int32 tariff = 6; 
   string name = 7;
   PlugType plugType = 8;
 }

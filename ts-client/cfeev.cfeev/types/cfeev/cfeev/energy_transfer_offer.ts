@@ -122,7 +122,7 @@ export const EnergyTransferOffer = {
       Location.encode(message.location, writer.uint32(42).fork()).ldelim();
     }
     if (message.tariff !== 0) {
-      writer.uint32(53).float(message.tariff);
+      writer.uint32(48).int32(message.tariff);
     }
     if (message.name !== "") {
       writer.uint32(58).string(message.name);
@@ -156,7 +156,7 @@ export const EnergyTransferOffer = {
           message.location = Location.decode(reader, reader.uint32());
           break;
         case 6:
-          message.tariff = reader.float();
+          message.tariff = reader.int32();
           break;
         case 7:
           message.name = reader.string();
@@ -192,7 +192,7 @@ export const EnergyTransferOffer = {
     message.chargerId !== undefined && (obj.chargerId = message.chargerId);
     message.chargerStatus !== undefined && (obj.chargerStatus = chargerStatusToJSON(message.chargerStatus));
     message.location !== undefined && (obj.location = message.location ? Location.toJSON(message.location) : undefined);
-    message.tariff !== undefined && (obj.tariff = message.tariff);
+    message.tariff !== undefined && (obj.tariff = Math.round(message.tariff));
     message.name !== undefined && (obj.name = message.name);
     message.plugType !== undefined && (obj.plugType = plugTypeToJSON(message.plugType));
     return obj;

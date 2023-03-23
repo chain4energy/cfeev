@@ -6,6 +6,6 @@ option go_package = "cfeev/x/cfeev/types";
 message EnergyTransferCreatedEvent {
   uint64 energyTransferId = 1; 
   string chargerId = 2; 
-  float energyAmountToTransfer = 3; 
+  int32 energyAmountToTransfer = 3; 
   string action = 4;
 }
