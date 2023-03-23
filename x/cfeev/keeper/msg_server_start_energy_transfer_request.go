@@ -69,8 +69,6 @@ func (k msgServer) StartEnergyTransferRequest(goCtx context.Context, msg *types.
 	// update the offer in the store
 	k.SetEnergyTransferOffer(ctx, offer)
 
-	k.SetEnergyTransfer(ctx, energyTransferObj)
-
 	// send notification event to connector, the event will emitted only if there is no previous errors
 	event := &types.EnergyTransferCreatedEvent{
 		EnergyTransferId:       energyTransferId,
