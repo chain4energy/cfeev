@@ -63,7 +63,10 @@ export interface CfeevMsgPublishEnergyTransferOfferResponse {
 
 export type CfeevMsgRemoveEnergyOfferResponse = object;
 
-export type CfeevMsgStartEnergyTransferRequestResponse = object;
+export interface CfeevMsgStartEnergyTransferRequestResponse {
+  /** @format uint64 */
+  id?: string;
+}
 
 /**
  * Params defines the parameters for the module.

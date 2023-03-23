@@ -82,7 +82,7 @@ func (k msgServer) StartEnergyTransferRequest(goCtx context.Context, msg *types.
 		k.Logger(ctx).Error("new EnergyTransferCreated emit event error", "event", event, "error", err.Error())
 	}
 
-	return &types.MsgStartEnergyTransferRequestResponse{}, nil
+	return &types.MsgStartEnergyTransferRequestResponse{Id: energyTransferId}, nil
 }
 
 // sends the collateral from the driver's account to a module account

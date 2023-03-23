@@ -40,6 +40,7 @@ message MsgStartEnergyTransferRequest {
 }
 
 message MsgStartEnergyTransferRequestResponse {
+  uint64 id = 1;
 }
 
 message MsgEnergyTransferStartedRequest {

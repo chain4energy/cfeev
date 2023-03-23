@@ -28,6 +28,7 @@ export interface MsgStartEnergyTransferRequest {
 }
 
 export interface MsgStartEnergyTransferRequestResponse {
+  id: number;
 }
 
 export interface MsgEnergyTransferStartedRequest {
@@ -306,11 +307,14 @@ export const MsgStartEnergyTransferRequest = {
 };
 
 function createBaseMsgStartEnergyTransferRequestResponse(): MsgStartEnergyTransferRequestResponse {
-  return {};
+  return { id: 0 };
 }
 
 export const MsgStartEnergyTransferRequestResponse = {
-  encode(_: MsgStartEnergyTransferRequestResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: MsgStartEnergyTransferRequestResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id);
+    }
     return writer;
   },
 
@@ -321,6 +325,9 @@ export const MsgStartEnergyTransferRequestResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long);
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -329,19 +336,21 @@ export const MsgStartEnergyTransferRequestResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgStartEnergyTransferRequestResponse {
-    return {};
+  fromJSON(object: any): MsgStartEnergyTransferRequestResponse {
+    return { id: isSet(object.id) ? Number(object.id) : 0 };
   },
 
-  toJSON(_: MsgStartEnergyTransferRequestResponse): unknown {
+  toJSON(message: MsgStartEnergyTransferRequestResponse): unknown {
     const obj: any = {};
+    message.id !== undefined && (obj.id = Math.round(message.id));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgStartEnergyTransferRequestResponse>, I>>(
-    _: I,
+    object: I,
   ): MsgStartEnergyTransferRequestResponse {
     const message = createBaseMsgStartEnergyTransferRequestResponse();
+    message.id = object.id ?? 0;
     return message;
   },
 };

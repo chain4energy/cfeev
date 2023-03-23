@@ -45262,6 +45262,10 @@ definitions:
     type: object
   cfeev.cfeev.MsgStartEnergyTransferRequestResponse:
     type: object
+    properties:
+      id:
+        type: string
+        format: uint64
   cfeev.cfeev.Params:
     type: object
     description: Params defines the parameters for the module.
