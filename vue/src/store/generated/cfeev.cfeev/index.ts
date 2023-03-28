@@ -43,6 +43,7 @@ const getDefaultState = () => {
 				EnergyTransferOfferAll: {},
 				EnergyTransfer: {},
 				EnergyTransferAll: {},
+				ListOwnEnergyTransferOffer: {},
 				
 				_Structure: {
 						EnergyTransfer: getStructure(EnergyTransfer.fromPartial({})),
@@ -107,6 +108,12 @@ export default {
 						(<any> params).query=null
 					}
 			return state.EnergyTransferAll[JSON.stringify(params)] ?? {}
+		},
+				getListOwnEnergyTransferOffer: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.ListOwnEnergyTransferOffer[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -260,32 +267,32 @@ export default {
 		},
 		
 		
-		async sendMsgRemoveEnergyOffer({ rootGetters }, { value, fee = [], memo = '' }) {
+		
+		
+		 		
+		
+		
+		async QueryListOwnEnergyTransferOffer({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
 			try {
-				const client=await initClient(rootGetters)
-				const result = await client.CfeevCfeev.tx.sendMsgRemoveEnergyOffer({ value, fee: {amount: fee, gas: "200000"}, memo })
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgRemoveEnergyOffer:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgRemoveEnergyOffer:Send Could not broadcast Tx: '+ e.message)
+				const key = params ?? {};
+				const client = initClient(rootGetters);
+				let value= (await client.CfeevCfeev.query.queryListOwnEnergyTransferOffer( key.ownerAccAddress, query ?? undefined)).data
+				
+					
+				while (all && (<any> value).pagination && (<any> value).pagination.next_key!=null) {
+					let next_values=(await client.CfeevCfeev.query.queryListOwnEnergyTransferOffer( key.ownerAccAddress, {...query ?? {}, 'pagination.key':(<any> value).pagination.next_key} as any)).data
+					value = mergeResults(value, next_values);
 				}
+				commit('QUERY', { query: 'ListOwnEnergyTransferOffer', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryListOwnEnergyTransferOffer', payload: { options: { all }, params: {...key},query }})
+				return getters['getListOwnEnergyTransferOffer']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryListOwnEnergyTransferOffer API Node Unavailable. Could not perform query: ' + e.message)
+				
 			}
 		},
-		async sendMsgPublishEnergyTransferOffer({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const client=await initClient(rootGetters)
-				const result = await client.CfeevCfeev.tx.sendMsgPublishEnergyTransferOffer({ value, fee: {amount: fee, gas: "200000"}, memo })
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgPublishEnergyTransferOffer:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgPublishEnergyTransferOffer:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
+		
+		
 		async sendMsgStartEnergyTransferRequest({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const client=await initClient(rootGetters)
@@ -312,16 +319,16 @@ export default {
 				}
 			}
 		},
-		async sendMsgCancelEnergyTransferRequest({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgPublishEnergyTransferOffer({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const client=await initClient(rootGetters)
-				const result = await client.CfeevCfeev.tx.sendMsgCancelEnergyTransferRequest({ value, fee: {amount: fee, gas: "200000"}, memo })
+				const result = await client.CfeevCfeev.tx.sendMsgPublishEnergyTransferOffer({ value, fee: {amount: fee, gas: "200000"}, memo })
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCancelEnergyTransferRequest:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgPublishEnergyTransferOffer:Init Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgCancelEnergyTransferRequest:Send Could not broadcast Tx: '+ e.message)
+					throw new Error('TxClient:MsgPublishEnergyTransferOffer:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -338,33 +345,33 @@ export default {
 				}
 			}
 		},
-		
-		async MsgRemoveEnergyOffer({ rootGetters }, { value }) {
+		async sendMsgCancelEnergyTransferRequest({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
-				const client=initClient(rootGetters)
-				const msg = await client.CfeevCfeev.tx.msgRemoveEnergyOffer({value})
-				return msg
+				const client=await initClient(rootGetters)
+				const result = await client.CfeevCfeev.tx.sendMsgCancelEnergyTransferRequest({ value, fee: {amount: fee, gas: "200000"}, memo })
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCancelEnergyTransferRequest:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgCancelEnergyTransferRequest:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgRemoveEnergyOffer({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const client=await initClient(rootGetters)
+				const result = await client.CfeevCfeev.tx.sendMsgRemoveEnergyOffer({ value, fee: {amount: fee, gas: "200000"}, memo })
+				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
 					throw new Error('TxClient:MsgRemoveEnergyOffer:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgRemoveEnergyOffer:Create Could not create message: ' + e.message)
+				}else{
+					throw new Error('TxClient:MsgRemoveEnergyOffer:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
-		async MsgPublishEnergyTransferOffer({ rootGetters }, { value }) {
-			try {
-				const client=initClient(rootGetters)
-				const msg = await client.CfeevCfeev.tx.msgPublishEnergyTransferOffer({value})
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgPublishEnergyTransferOffer:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgPublishEnergyTransferOffer:Create Could not create message: ' + e.message)
-				}
-			}
-		},
+		
 		async MsgStartEnergyTransferRequest({ rootGetters }, { value }) {
 			try {
 				const client=initClient(rootGetters)
@@ -391,16 +398,16 @@ export default {
 				}
 			}
 		},
-		async MsgCancelEnergyTransferRequest({ rootGetters }, { value }) {
+		async MsgPublishEnergyTransferOffer({ rootGetters }, { value }) {
 			try {
 				const client=initClient(rootGetters)
-				const msg = await client.CfeevCfeev.tx.msgCancelEnergyTransferRequest({value})
+				const msg = await client.CfeevCfeev.tx.msgPublishEnergyTransferOffer({value})
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCancelEnergyTransferRequest:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgPublishEnergyTransferOffer:Init Could not initialize signing client. Wallet is required.')
 				} else{
-					throw new Error('TxClient:MsgCancelEnergyTransferRequest:Create Could not create message: ' + e.message)
+					throw new Error('TxClient:MsgPublishEnergyTransferOffer:Create Could not create message: ' + e.message)
 				}
 			}
 		},
@@ -414,6 +421,32 @@ export default {
 					throw new Error('TxClient:MsgEnergyTransferCompletedRequest:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgEnergyTransferCompletedRequest:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgCancelEnergyTransferRequest({ rootGetters }, { value }) {
+			try {
+				const client=initClient(rootGetters)
+				const msg = await client.CfeevCfeev.tx.msgCancelEnergyTransferRequest({value})
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCancelEnergyTransferRequest:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgCancelEnergyTransferRequest:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgRemoveEnergyOffer({ rootGetters }, { value }) {
+			try {
+				const client=initClient(rootGetters)
+				const msg = await client.CfeevCfeev.tx.msgRemoveEnergyOffer({value})
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgRemoveEnergyOffer:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgRemoveEnergyOffer:Create Could not create message: ' + e.message)
 				}
 			}
 		},
