@@ -5,8 +5,8 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "cfeev/cfeev/params.proto";
-import "cfeev/cfeev/energy_transfer.proto";
 // this line is used by starport scaffolding # 1
+import "cfeev/cfeev/energy_transfer.proto";
 import "cfeev/cfeev/energy_transfer_offer.proto";
 
 option go_package = "cfeev/x/cfeev/types";
@@ -40,6 +40,11 @@ service Query {
 // Queries a list of ListOwnEnergyTransferOffer items.
 	rpc ListOwnEnergyTransferOffer(QueryListOwnEnergyTransferOfferRequest) returns (QueryListOwnEnergyTransferOfferResponse) {
 		option (google.api.http).get = "/cfeev/cfeev/list_own_energy_transfer_offer/{ownerAccAddress}";
+	}
+
+// Queries a list of ListOwnEnergyTransfer items.
+	rpc ListOwnEnergyTransfer(QueryListOwnEnergyTransferRequest) returns (QueryListOwnEnergyTransferResponse) {
+		option (google.api.http).get = "/cfeev/cfeev/list_own_energy_transfer/{driverAccAddress}";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -95,6 +100,16 @@ cosmos.base.query.v1beta1.PageRequest pagination = 2;
 
 message QueryListOwnEnergyTransferOfferResponse {
   repeated EnergyTransferOffer energyTransferOffer = 1 [(gogoproto.nullable) = false];
+cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryListOwnEnergyTransferRequest {
+  string driverAccAddress = 1;
+cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryListOwnEnergyTransferResponse {
+  repeated EnergyTransfer energyTransfer = 1 [(gogoproto.nullable) = false];
 cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

@@ -62,6 +62,16 @@ export interface QueryListOwnEnergyTransferOfferResponse {
   pagination: PageResponse | undefined;
 }
 
+export interface QueryListOwnEnergyTransferRequest {
+  driverAccAddress: string;
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryListOwnEnergyTransferResponse {
+  energyTransfer: EnergyTransfer[];
+  pagination: PageResponse | undefined;
+}
+
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -733,6 +743,138 @@ export const QueryListOwnEnergyTransferOfferResponse = {
   },
 };
 
+function createBaseQueryListOwnEnergyTransferRequest(): QueryListOwnEnergyTransferRequest {
+  return { driverAccAddress: "", pagination: undefined };
+}
+
+export const QueryListOwnEnergyTransferRequest = {
+  encode(message: QueryListOwnEnergyTransferRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.driverAccAddress !== "") {
+      writer.uint32(10).string(message.driverAccAddress);
+    }
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryListOwnEnergyTransferRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryListOwnEnergyTransferRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.driverAccAddress = reader.string();
+          break;
+        case 2:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryListOwnEnergyTransferRequest {
+    return {
+      driverAccAddress: isSet(object.driverAccAddress) ? String(object.driverAccAddress) : "",
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+    };
+  },
+
+  toJSON(message: QueryListOwnEnergyTransferRequest): unknown {
+    const obj: any = {};
+    message.driverAccAddress !== undefined && (obj.driverAccAddress = message.driverAccAddress);
+    message.pagination !== undefined
+      && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryListOwnEnergyTransferRequest>, I>>(
+    object: I,
+  ): QueryListOwnEnergyTransferRequest {
+    const message = createBaseQueryListOwnEnergyTransferRequest();
+    message.driverAccAddress = object.driverAccAddress ?? "";
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryListOwnEnergyTransferResponse(): QueryListOwnEnergyTransferResponse {
+  return { energyTransfer: [], pagination: undefined };
+}
+
+export const QueryListOwnEnergyTransferResponse = {
+  encode(message: QueryListOwnEnergyTransferResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.energyTransfer) {
+      EnergyTransfer.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryListOwnEnergyTransferResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryListOwnEnergyTransferResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.energyTransfer.push(EnergyTransfer.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryListOwnEnergyTransferResponse {
+    return {
+      energyTransfer: Array.isArray(object?.energyTransfer)
+        ? object.energyTransfer.map((e: any) => EnergyTransfer.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+    };
+  },
+
+  toJSON(message: QueryListOwnEnergyTransferResponse): unknown {
+    const obj: any = {};
+    if (message.energyTransfer) {
+      obj.energyTransfer = message.energyTransfer.map((e) => e ? EnergyTransfer.toJSON(e) : undefined);
+    } else {
+      obj.energyTransfer = [];
+    }
+    message.pagination !== undefined
+      && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryListOwnEnergyTransferResponse>, I>>(
+    object: I,
+  ): QueryListOwnEnergyTransferResponse {
+    const message = createBaseQueryListOwnEnergyTransferResponse();
+    message.energyTransfer = object.energyTransfer?.map((e) => EnergyTransfer.fromPartial(e)) || [];
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -749,6 +891,8 @@ export interface Query {
   ListOwnEnergyTransferOffer(
     request: QueryListOwnEnergyTransferOfferRequest,
   ): Promise<QueryListOwnEnergyTransferOfferResponse>;
+  /** Queries a list of ListOwnEnergyTransfer items. */
+  ListOwnEnergyTransfer(request: QueryListOwnEnergyTransferRequest): Promise<QueryListOwnEnergyTransferResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -761,6 +905,7 @@ export class QueryClientImpl implements Query {
     this.EnergyTransfer = this.EnergyTransfer.bind(this);
     this.EnergyTransferAll = this.EnergyTransferAll.bind(this);
     this.ListOwnEnergyTransferOffer = this.ListOwnEnergyTransferOffer.bind(this);
+    this.ListOwnEnergyTransfer = this.ListOwnEnergyTransfer.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
@@ -798,6 +943,12 @@ export class QueryClientImpl implements Query {
     const data = QueryListOwnEnergyTransferOfferRequest.encode(request).finish();
     const promise = this.rpc.request("cfeev.cfeev.Query", "ListOwnEnergyTransferOffer", data);
     return promise.then((data) => QueryListOwnEnergyTransferOfferResponse.decode(new _m0.Reader(data)));
+  }
+
+  ListOwnEnergyTransfer(request: QueryListOwnEnergyTransferRequest): Promise<QueryListOwnEnergyTransferResponse> {
+    const data = QueryListOwnEnergyTransferRequest.encode(request).finish();
+    const promise = this.rpc.request("cfeev.cfeev.Query", "ListOwnEnergyTransfer", data);
+    return promise.then((data) => QueryListOwnEnergyTransferResponse.decode(new _m0.Reader(data)));
   }
 }
 
