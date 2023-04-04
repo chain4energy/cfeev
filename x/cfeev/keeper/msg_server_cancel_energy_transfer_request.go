@@ -26,7 +26,7 @@ func (k msgServer) CancelEnergyTransferRequest(goCtx context.Context, msg *types
 	offer.ChargerStatus = types.ChargerStatus_ACTIVE
 
 	// send the collateral back to the EV driver's account
-	err := k.sendCollateralToTargetAccount(ctx, energyTransfer.DriverAccountAddress, "1000token")
+	err := k.sendTokensToTargetAccount(ctx, energyTransfer.DriverAccountAddress, "1000token")
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrCoinTransferFailed, "coin transfer failed")
 	}

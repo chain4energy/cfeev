@@ -23,27 +23,30 @@ func (k msgServer) EnergyTransferCompletedRequest(goCtx context.Context, msg *ty
 	usedServiceUnits := msg.GetUsedServiceUnits()
 
 	if energyTransferObj.EnergyToTransfer == usedServiceUnits {
-		// send callateral to CP owner's account
+		// send entire callateral to CP owner's account
 		coinsToTransfer := strconv.FormatInt(int64(energyTransferObj.GetCollateral()), 10) + "uc4e"
-		err = k.sendCollateralToTargetAccount(ctx, energyTransferObj.OwnerAccountAddress, coinsToTransfer)
+		err = k.sendTokensToTargetAccount(ctx, energyTransferObj.OwnerAccountAddress, coinsToTransfer)
 		energyTransferObj.Status = types.TransferStatus_PAID
+
 	} else if energyTransferObj.EnergyToTransfer > usedServiceUnits {
-		// x := usedServiceUnits32 / energyTransfer.EnergyToTransfer
-		// y := float64(x)
-		// // round float to 3 decimal places
-		// z := math.Floor(y*1000) / 1000
-		// tokensSpentInt := int(z * 1000)
-		// // used tokens
-		// var usedTokens string
-		// usedTokens = strconv.Itoa(tokensSpentInt)
-		// usedTokens = usedTokens + "token"
-		// err = k.sendCollateralToTargetAccount(ctx, energyTransfer.OwnerAccountAddress, usedTokens)
-		// energyTransfer.Status = types.TransferStatus_PAID
-		// // unused tokens
-		// var unusedTokens string
-		// unusedTokens = strconv.Itoa(1000 - tokensSpentInt)
-		// unusedTokens = unusedTokens + "token"
-		// err = k.sendCollateralToTargetAccount(ctx, energyTransfer.DriverAccountAddress, unusedTokens)
+		// calculate used tokens
+		usedTokens := energyTransferObj.OfferedTariff * usedServiceUnits
+		coinsToTransfer := strconv.FormatInt(int64(usedTokens), 10) + "uc4e"
+		err = k.sendTokensToTargetAccount(ctx, energyTransferObj.OwnerAccountAddress, coinsToTransfer)
+
+		// calculate unused tokens
+		unusedTokens := energyTransferObj.Collateral - uint64(usedTokens)
+		coinsToTransfer = strconv.FormatInt(int64(unusedTokens), 10) + "uc4e"
+		err = k.sendTokensToTargetAccount(ctx, energyTransferObj.DriverAccountAddress, coinsToTransfer)
+
+		// set status
+		energyTransferObj.Status = types.TransferStatus_PAID
+		if err != nil {
+			// TODO:
+		}
+
+	} else if usedServiceUnits == 0 {
+		// TODO:
 	}
 
 	if err != nil {
@@ -65,7 +68,7 @@ func (k msgServer) EnergyTransferCompletedRequest(goCtx context.Context, msg *ty
 	return &types.MsgEnergyTransferCompletedRequestResponse{}, nil
 }
 
-func (k msgServer) sendCollateralToTargetAccount(ctx sdk.Context, targetAccountAddress string, collateral string) error {
+func (k msgServer) sendTokensToTargetAccount(ctx sdk.Context, targetAccountAddress string, collateral string) error {
 	target, err := sdk.AccAddressFromBech32(targetAccountAddress)
 	if err != nil {
 		panic(err)
