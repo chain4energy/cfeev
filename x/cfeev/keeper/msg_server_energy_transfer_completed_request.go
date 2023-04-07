@@ -44,6 +44,7 @@ func (k msgServer) EnergyTransferCompletedRequest(goCtx context.Context, msg *ty
 		if err != nil {
 			// TODO:
 		}
+		// TODO: handle exceeded limit value
 
 	} else if usedServiceUnits == 0 {
 		// TODO:
