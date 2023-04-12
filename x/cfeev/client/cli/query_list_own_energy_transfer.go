@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"cfeev/x/cfeev/types"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cobra"
@@ -13,11 +14,16 @@ var _ = strconv.Itoa(0)
 
 func CmdListOwnEnergyTransfer() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-own-energy-transfer [driver-acc-address]",
+		Use:   "list-own-energy-transfer [driver-acc-address] [transfer-status]",
 		Short: "Query list-own-energy-transfer",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			reqDriverAccAddress := args[0]
+
+			status, err := strconv.ParseUint(args[1], 10, 32)
+			if err != nil {
+				return err
+			}
 
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {
@@ -29,6 +35,7 @@ func CmdListOwnEnergyTransfer() *cobra.Command {
 			params := &types.QueryListOwnEnergyTransferRequest{
 
 				DriverAccAddress: reqDriverAccAddress,
+				TransferStatus:   int32(status),
 			}
 
 			pageReq, err := client.ReadPageRequest(cmd.Flags())

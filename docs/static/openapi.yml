@@ -558,6 +558,11 @@ paths:
           in: path
           required: true
           type: string
+        - name: transferStatus
+          in: query
+          required: false
+          type: integer
+          format: int32
         - name: pagination.key
           description: |-
             key is a value returned in PageResponse.next_key to begin

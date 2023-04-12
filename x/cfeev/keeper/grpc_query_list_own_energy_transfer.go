@@ -29,18 +29,7 @@ func (k Keeper) ListOwnEnergyTransfer(goCtx context.Context, req *types.QueryLis
 			return err
 		}
 
-		////
-		// status := 1
-		// statusStr := "PAID"
-		// if energyTransfer.Status == types.TransferStatus(status) {
-
-		// }
-		// if energyTransfer.Status == types.TransferStatus(types.TransferStatus_value[statusStr]) {
-
-		// }
-		////
-
-		if energyTransfer.GetDriverAccountAddress() == req.GetDriverAccAddress() && energyTransfer.Status == types.TransferStatus_PAID {
+		if energyTransfer.GetDriverAccountAddress() == req.GetDriverAccAddress() && energyTransfer.Status == types.TransferStatus(types.TransferStatus(req.GetTransferStatus())) {
 			energyTransfers = append(energyTransfers, energyTransfer)
 		}
 

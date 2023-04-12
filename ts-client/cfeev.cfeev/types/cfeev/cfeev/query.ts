@@ -64,6 +64,7 @@ export interface QueryListOwnEnergyTransferOfferResponse {
 
 export interface QueryListOwnEnergyTransferRequest {
   driverAccAddress: string;
+  transferStatus: number;
   pagination: PageRequest | undefined;
 }
 
@@ -744,7 +745,7 @@ export const QueryListOwnEnergyTransferOfferResponse = {
 };
 
 function createBaseQueryListOwnEnergyTransferRequest(): QueryListOwnEnergyTransferRequest {
-  return { driverAccAddress: "", pagination: undefined };
+  return { driverAccAddress: "", transferStatus: 0, pagination: undefined };
 }
 
 export const QueryListOwnEnergyTransferRequest = {
@@ -752,8 +753,11 @@ export const QueryListOwnEnergyTransferRequest = {
     if (message.driverAccAddress !== "") {
       writer.uint32(10).string(message.driverAccAddress);
     }
+    if (message.transferStatus !== 0) {
+      writer.uint32(16).int32(message.transferStatus);
+    }
     if (message.pagination !== undefined) {
-      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+      PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -769,6 +773,9 @@ export const QueryListOwnEnergyTransferRequest = {
           message.driverAccAddress = reader.string();
           break;
         case 2:
+          message.transferStatus = reader.int32();
+          break;
+        case 3:
           message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
         default:
@@ -782,6 +789,7 @@ export const QueryListOwnEnergyTransferRequest = {
   fromJSON(object: any): QueryListOwnEnergyTransferRequest {
     return {
       driverAccAddress: isSet(object.driverAccAddress) ? String(object.driverAccAddress) : "",
+      transferStatus: isSet(object.transferStatus) ? Number(object.transferStatus) : 0,
       pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
@@ -789,6 +797,7 @@ export const QueryListOwnEnergyTransferRequest = {
   toJSON(message: QueryListOwnEnergyTransferRequest): unknown {
     const obj: any = {};
     message.driverAccAddress !== undefined && (obj.driverAccAddress = message.driverAccAddress);
+    message.transferStatus !== undefined && (obj.transferStatus = Math.round(message.transferStatus));
     message.pagination !== undefined
       && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
@@ -799,6 +808,7 @@ export const QueryListOwnEnergyTransferRequest = {
   ): QueryListOwnEnergyTransferRequest {
     const message = createBaseQueryListOwnEnergyTransferRequest();
     message.driverAccAddress = object.driverAccAddress ?? "";
+    message.transferStatus = object.transferStatus ?? 0;
     message.pagination = (object.pagination !== undefined && object.pagination !== null)
       ? PageRequest.fromPartial(object.pagination)
       : undefined;

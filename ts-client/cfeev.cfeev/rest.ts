@@ -486,6 +486,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryListOwnEnergyTransfer = (
     driverAccAddress: string,
     query?: {
+      transferStatus?: number;
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
