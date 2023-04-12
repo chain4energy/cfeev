@@ -34,6 +34,10 @@ export interface CfeevEnergyTransfer {
 
   /** @format int32 */
   energyToTransfer?: number;
+
+  /** @format int32 */
+  energyTransferred?: number;
+  paidDate?: string;
 }
 
 export interface CfeevEnergyTransferOffer {

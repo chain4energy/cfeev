@@ -48,6 +48,11 @@ paths:
                     energyToTransfer:
                       type: integer
                       format: int32
+                    energyTransferred:
+                      type: integer
+                      format: int32
+                    paidDate:
+                      type: string
               pagination:
                 type: object
                 properties:
@@ -195,6 +200,11 @@ paths:
                   energyToTransfer:
                     type: integer
                     format: int32
+                  energyTransferred:
+                    type: integer
+                    format: int32
+                  paidDate:
+                    type: string
         default:
           description: An unexpected error response.
           schema:
@@ -492,6 +502,11 @@ paths:
                     energyToTransfer:
                       type: integer
                       format: int32
+                    energyTransferred:
+                      type: integer
+                      format: int32
+                    paidDate:
+                      type: string
               pagination:
                 type: object
                 properties:
@@ -45513,6 +45528,11 @@ definitions:
       energyToTransfer:
         type: integer
         format: int32
+      energyTransferred:
+        type: integer
+        format: int32
+      paidDate:
+        type: string
   cfeev.cfeev.EnergyTransferOffer:
     type: object
     properties:
@@ -45693,6 +45713,11 @@ definitions:
             energyToTransfer:
               type: integer
               format: int32
+            energyTransferred:
+              type: integer
+              format: int32
+            paidDate:
+              type: string
       pagination:
         type: object
         properties:
@@ -45794,6 +45819,11 @@ definitions:
           energyToTransfer:
             type: integer
             format: int32
+          energyTransferred:
+            type: integer
+            format: int32
+          paidDate:
+            type: string
   cfeev.cfeev.QueryListOwnEnergyTransferOfferResponse:
     type: object
     properties:
@@ -45899,6 +45929,11 @@ definitions:
             energyToTransfer:
               type: integer
               format: int32
+            energyTransferred:
+              type: integer
+              format: int32
+            paidDate:
+              type: string
       pagination:
         type: object
         properties:

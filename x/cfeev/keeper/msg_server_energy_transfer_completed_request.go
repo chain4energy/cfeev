@@ -20,7 +20,16 @@ func (k msgServer) EnergyTransferCompletedRequest(goCtx context.Context, msg *ty
 	}
 
 	var err error
+
+	date, err := ctx.BlockTime().UTC().MarshalText()
+	if err != nil {
+		energyTransferObj.PaidDate = "Error"
+	} else {
+		energyTransferObj.PaidDate = string(date)
+	}
+
 	usedServiceUnits := msg.GetUsedServiceUnits()
+	energyTransferObj.EnergyTransferred = usedServiceUnits
 
 	if energyTransferObj.EnergyToTransfer == usedServiceUnits {
 		// send entire callateral to CP owner's account

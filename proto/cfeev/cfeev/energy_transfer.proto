@@ -13,6 +13,8 @@ message EnergyTransfer {
   TransferStatus status = 7; 
   uint64 collateral = 8;
   int32 energyToTransfer = 9;
+  int32 energyTransferred = 10;
+  string paidDate = 11;
   
 }
 

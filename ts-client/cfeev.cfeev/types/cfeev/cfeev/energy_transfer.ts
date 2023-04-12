@@ -59,6 +59,8 @@ export interface EnergyTransfer {
   status: TransferStatus;
   collateral: number;
   energyToTransfer: number;
+  energyTransferred: number;
+  paidDate: string;
 }
 
 function createBaseEnergyTransfer(): EnergyTransfer {
@@ -72,6 +74,8 @@ function createBaseEnergyTransfer(): EnergyTransfer {
     status: 0,
     collateral: 0,
     energyToTransfer: 0,
+    energyTransferred: 0,
+    paidDate: "",
   };
 }
 
@@ -103,6 +107,12 @@ export const EnergyTransfer = {
     }
     if (message.energyToTransfer !== 0) {
       writer.uint32(72).int32(message.energyToTransfer);
+    }
+    if (message.energyTransferred !== 0) {
+      writer.uint32(80).int32(message.energyTransferred);
+    }
+    if (message.paidDate !== "") {
+      writer.uint32(90).string(message.paidDate);
     }
     return writer;
   },
@@ -141,6 +151,12 @@ export const EnergyTransfer = {
         case 9:
           message.energyToTransfer = reader.int32();
           break;
+        case 10:
+          message.energyTransferred = reader.int32();
+          break;
+        case 11:
+          message.paidDate = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -160,6 +176,8 @@ export const EnergyTransfer = {
       status: isSet(object.status) ? transferStatusFromJSON(object.status) : 0,
       collateral: isSet(object.collateral) ? Number(object.collateral) : 0,
       energyToTransfer: isSet(object.energyToTransfer) ? Number(object.energyToTransfer) : 0,
+      energyTransferred: isSet(object.energyTransferred) ? Number(object.energyTransferred) : 0,
+      paidDate: isSet(object.paidDate) ? String(object.paidDate) : "",
     };
   },
 
@@ -175,6 +193,8 @@ export const EnergyTransfer = {
     message.status !== undefined && (obj.status = transferStatusToJSON(message.status));
     message.collateral !== undefined && (obj.collateral = Math.round(message.collateral));
     message.energyToTransfer !== undefined && (obj.energyToTransfer = Math.round(message.energyToTransfer));
+    message.energyTransferred !== undefined && (obj.energyTransferred = Math.round(message.energyTransferred));
+    message.paidDate !== undefined && (obj.paidDate = message.paidDate);
     return obj;
   },
 
@@ -189,6 +209,8 @@ export const EnergyTransfer = {
     message.status = object.status ?? 0;
     message.collateral = object.collateral ?? 0;
     message.energyToTransfer = object.energyToTransfer ?? 0;
+    message.energyTransferred = object.energyTransferred ?? 0;
+    message.paidDate = object.paidDate ?? "";
     return message;
   },
 };
