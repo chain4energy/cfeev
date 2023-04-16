@@ -14,4 +14,5 @@ var (
 	ErrEnergyTransferOfferNotFound        = sdkerrors.Register(ModuleName, 5, "energy transfer offer not found")
 	ErrEnergyTransferOfferCannotBeRemoved = sdkerrors.Register(ModuleName, 6, "energy transfer offer cannot be removed")
 	ErrCoinTransferFailed                 = sdkerrors.Register(ModuleName, 7, "coin transfer failed")
+	ErrWrongEnergyTransferStatus          = sdkerrors.Register(ModuleName, 8, "energy transfer wrong status")
 )
