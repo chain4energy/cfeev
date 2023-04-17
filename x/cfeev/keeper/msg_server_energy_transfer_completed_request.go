@@ -55,7 +55,13 @@ func (k msgServer) EnergyTransferCompletedRequest(goCtx context.Context, msg *ty
 		}
 		// TODO: handle exceeded limit value
 
-	} else if usedServiceUnits == 0 {
+	} else if usedServiceUnits > energyTransferObj.EnergyToTransfer {
+		if (usedServiceUnits - energyTransferObj.EnergyToTransfer) < 4 {
+			// send entire callateral to CP owner's account
+			coinsToTransfer := strconv.FormatInt(int64(energyTransferObj.GetCollateral()), 10) + "uc4e"
+			err = k.sendTokensToTargetAccount(ctx, energyTransferObj.OwnerAccountAddress, coinsToTransfer)
+			energyTransferObj.Status = types.TransferStatus_PAID
+		}
 		// TODO:
 	}
 
