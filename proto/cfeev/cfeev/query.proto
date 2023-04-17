@@ -1,13 +1,13 @@
 syntax = "proto3";
-package cfeev.cfeev;
+package chain4energy.cfeev.cfeev;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "github.com/chain4energy/cfeev/cfeev/params.proto";
+import "cfeev/cfeev/params.proto";
 // this line is used by starport scaffolding # 1
-import "github.com/chain4energy/cfeev/cfeev/energy_transfer.proto";
-import "github.com/chain4energy/cfeev/cfeev/energy_transfer_offer.proto";
+import "cfeev/cfeev/energy_transfer.proto";
+import "cfeev/cfeev/energy_transfer_offer.proto";
 
 option go_package = "github.com/chain4energy/cfeev/x/cfeev/types";
 
