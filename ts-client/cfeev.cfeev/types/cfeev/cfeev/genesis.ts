@@ -5,7 +5,7 @@ import { EnergyTransfer } from "./energy_transfer";
 import { EnergyTransferOffer } from "./energy_transfer_offer";
 import { Params } from "./params";
 
-export const protobufPackage = "cfeev.cfeev";
+export const protobufPackage = "github.com/chain4energy/cfeev.cfeev";
 
 /** GenesisState defines the cfeev module's genesis state. */
 export interface GenesisState {

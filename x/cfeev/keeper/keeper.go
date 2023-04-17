@@ -3,7 +3,7 @@ package keeper
 import (
 	"fmt"
 
-	"cfeev/x/cfeev/types"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"

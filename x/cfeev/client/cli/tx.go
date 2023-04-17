@@ -8,7 +8,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	// "github.com/cosmos/cosmos-sdk/client/flags"
-	"cfeev/x/cfeev/types"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 )
 
 var (

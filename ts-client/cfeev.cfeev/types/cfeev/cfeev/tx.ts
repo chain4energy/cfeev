@@ -5,7 +5,7 @@ import { Coin } from "../../cosmos/base/v1beta1/coin";
 import { PlugType, plugTypeFromJSON, plugTypeToJSON } from "./energy_transfer_offer";
 import { Location } from "./location";
 
-export const protobufPackage = "cfeev.cfeev";
+export const protobufPackage = "github.com/chain4energy/cfeev.cfeev";
 
 export interface MsgPublishEnergyTransferOffer {
   creator: string;
@@ -887,13 +887,13 @@ export class MsgClientImpl implements Msg {
   }
   PublishEnergyTransferOffer(request: MsgPublishEnergyTransferOffer): Promise<MsgPublishEnergyTransferOfferResponse> {
     const data = MsgPublishEnergyTransferOffer.encode(request).finish();
-    const promise = this.rpc.request("cfeev.cfeev.Msg", "PublishEnergyTransferOffer", data);
+    const promise = this.rpc.request("github.com/chain4energy/cfeev.cfeev.Msg", "PublishEnergyTransferOffer", data);
     return promise.then((data) => MsgPublishEnergyTransferOfferResponse.decode(new _m0.Reader(data)));
   }
 
   StartEnergyTransferRequest(request: MsgStartEnergyTransferRequest): Promise<MsgStartEnergyTransferRequestResponse> {
     const data = MsgStartEnergyTransferRequest.encode(request).finish();
-    const promise = this.rpc.request("cfeev.cfeev.Msg", "StartEnergyTransferRequest", data);
+    const promise = this.rpc.request("github.com/chain4energy/cfeev.cfeev.Msg", "StartEnergyTransferRequest", data);
     return promise.then((data) => MsgStartEnergyTransferRequestResponse.decode(new _m0.Reader(data)));
   }
 
@@ -901,7 +901,7 @@ export class MsgClientImpl implements Msg {
     request: MsgEnergyTransferStartedRequest,
   ): Promise<MsgEnergyTransferStartedRequestResponse> {
     const data = MsgEnergyTransferStartedRequest.encode(request).finish();
-    const promise = this.rpc.request("cfeev.cfeev.Msg", "EnergyTransferStartedRequest", data);
+    const promise = this.rpc.request("github.com/chain4energy/cfeev.cfeev.Msg", "EnergyTransferStartedRequest", data);
     return promise.then((data) => MsgEnergyTransferStartedRequestResponse.decode(new _m0.Reader(data)));
   }
 
@@ -909,7 +909,7 @@ export class MsgClientImpl implements Msg {
     request: MsgEnergyTransferCompletedRequest,
   ): Promise<MsgEnergyTransferCompletedRequestResponse> {
     const data = MsgEnergyTransferCompletedRequest.encode(request).finish();
-    const promise = this.rpc.request("cfeev.cfeev.Msg", "EnergyTransferCompletedRequest", data);
+    const promise = this.rpc.request("github.com/chain4energy/cfeev.cfeev.Msg", "EnergyTransferCompletedRequest", data);
     return promise.then((data) => MsgEnergyTransferCompletedRequestResponse.decode(new _m0.Reader(data)));
   }
 
@@ -917,13 +917,13 @@ export class MsgClientImpl implements Msg {
     request: MsgCancelEnergyTransferRequest,
   ): Promise<MsgCancelEnergyTransferRequestResponse> {
     const data = MsgCancelEnergyTransferRequest.encode(request).finish();
-    const promise = this.rpc.request("cfeev.cfeev.Msg", "CancelEnergyTransferRequest", data);
+    const promise = this.rpc.request("github.com/chain4energy/cfeev.cfeev.Msg", "CancelEnergyTransferRequest", data);
     return promise.then((data) => MsgCancelEnergyTransferRequestResponse.decode(new _m0.Reader(data)));
   }
 
   RemoveEnergyOffer(request: MsgRemoveEnergyOffer): Promise<MsgRemoveEnergyOfferResponse> {
     const data = MsgRemoveEnergyOffer.encode(request).finish();
-    const promise = this.rpc.request("cfeev.cfeev.Msg", "RemoveEnergyOffer", data);
+    const promise = this.rpc.request("github.com/chain4energy/cfeev.cfeev.Msg", "RemoveEnergyOffer", data);
     return promise.then((data) => MsgRemoveEnergyOfferResponse.decode(new _m0.Reader(data)));
   }
 }

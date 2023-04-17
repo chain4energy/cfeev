@@ -4,7 +4,7 @@ import (
 	"context"
 	"strconv"
 
-	"cfeev/x/cfeev/types"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cobra"

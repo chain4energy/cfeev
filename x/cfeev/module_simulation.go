@@ -3,9 +3,9 @@ package cfeev
 import (
 	"math/rand"
 
-	"cfeev/testutil/sample"
-	cfeevsimulation "cfeev/x/cfeev/simulation"
-	"cfeev/x/cfeev/types"
+	"github.com/chain4energy/cfeev/testutil/sample"
+	cfeevsimulation "github.com/chain4energy/cfeev/x/cfeev/simulation"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	simappparams "github.com/cosmos/cosmos-sdk/simapp/params"
 	sdk "github.com/cosmos/cosmos-sdk/types"

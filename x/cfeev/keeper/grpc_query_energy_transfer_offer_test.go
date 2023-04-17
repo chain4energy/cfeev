@@ -10,9 +10,9 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	keepertest "cfeev/testutil/keeper"
-	"cfeev/testutil/nullify"
-	"cfeev/x/cfeev/types"
+	keepertest "github.com/chain4energy/cfeev/testutil/keeper"
+	"github.com/chain4energy/cfeev/testutil/nullify"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 )
 
 func TestEnergyTransferOfferQuerySingle(t *testing.T) {

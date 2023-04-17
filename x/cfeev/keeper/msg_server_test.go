@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	keepertest "cfeev/testutil/keeper"
-	"cfeev/x/cfeev/keeper"
-	"cfeev/x/cfeev/types"
+	keepertest "github.com/chain4energy/cfeev/testutil/keeper"
+	"github.com/chain4energy/cfeev/x/cfeev/keeper"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 

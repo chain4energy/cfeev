@@ -1,10 +1,10 @@
 import { Client, registry, MissingWalletError } from 'cfeev-client-ts'
 
-import { EnergyTransfer } from "cfeev-client-ts/cfeev.cfeev/types"
-import { EnergyTransferOffer } from "cfeev-client-ts/cfeev.cfeev/types"
-import { EnergyTransferCreatedEvent } from "cfeev-client-ts/cfeev.cfeev/types"
-import { Location } from "cfeev-client-ts/cfeev.cfeev/types"
-import { Params } from "cfeev-client-ts/cfeev.cfeev/types"
+import { EnergyTransfer } from "github.com/chain4energy/cfeev-client-ts/cfeev.cfeev/types"
+import { EnergyTransferOffer } from "github.com/chain4energy/cfeev-client-ts/cfeev.cfeev/types"
+import { EnergyTransferCreatedEvent } from "github.com/chain4energy/cfeev-client-ts/cfeev.cfeev/types"
+import { Location } from "github.com/chain4energy/cfeev-client-ts/cfeev.cfeev/types"
+import { Params } from "github.com/chain4energy/cfeev-client-ts/cfeev.cfeev/types"
 
 
 export { EnergyTransfer, EnergyTransferOffer, EnergyTransferCreatedEvent, Location, Params };

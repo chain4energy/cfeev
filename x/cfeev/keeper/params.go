@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"cfeev/x/cfeev/types"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 

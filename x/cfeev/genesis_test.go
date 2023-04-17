@@ -3,10 +3,10 @@ package cfeev_test
 import (
 	"testing"
 
-	keepertest "cfeev/testutil/keeper"
-	"cfeev/testutil/nullify"
-	"cfeev/x/cfeev"
-	"cfeev/x/cfeev/types"
+	keepertest "github.com/chain4energy/cfeev/testutil/keeper"
+	"github.com/chain4energy/cfeev/testutil/nullify"
+	"github.com/chain4energy/cfeev/x/cfeev"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 	"github.com/stretchr/testify/require"
 )
 

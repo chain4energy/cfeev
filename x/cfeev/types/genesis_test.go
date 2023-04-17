@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"cfeev/x/cfeev/types"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 	"github.com/stretchr/testify/require"
 )
 

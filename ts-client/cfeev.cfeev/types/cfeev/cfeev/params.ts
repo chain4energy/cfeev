@@ -1,7 +1,7 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
 
-export const protobufPackage = "cfeev.cfeev";
+export const protobufPackage = "github.com/chain4energy/cfeev.cfeev";
 
 /** Params defines the parameters for the module. */
 export interface Params {

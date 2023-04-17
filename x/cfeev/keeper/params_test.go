@@ -3,8 +3,8 @@ package keeper_test
 import (
 	"testing"
 
-	testkeeper "cfeev/testutil/keeper"
-	"cfeev/x/cfeev/types"
+	testkeeper "github.com/chain4energy/cfeev/testutil/keeper"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 	"github.com/stretchr/testify/require"
 )
 

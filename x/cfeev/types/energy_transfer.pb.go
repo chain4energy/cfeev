@@ -178,11 +178,13 @@ func (m *EnergyTransfer) GetPaidDate() string {
 }
 
 func init() {
-	proto.RegisterEnum("cfeev.cfeev.TransferStatus", TransferStatus_name, TransferStatus_value)
-	proto.RegisterType((*EnergyTransfer)(nil), "cfeev.cfeev.EnergyTransfer")
+	proto.RegisterEnum("github.com/chain4energy/cfeev.cfeev.TransferStatus", TransferStatus_name, TransferStatus_value)
+	proto.RegisterType((*EnergyTransfer)(nil), "github.com/chain4energy/cfeev.cfeev.EnergyTransfer")
 }
 
-func init() { proto.RegisterFile("cfeev/cfeev/energy_transfer.proto", fileDescriptor_5a73aadc8216b491) }
+func init() {
+	proto.RegisterFile("github.com/chain4energy/cfeev/cfeev/energy_transfer.proto", fileDescriptor_5a73aadc8216b491)
+}
 
 var fileDescriptor_5a73aadc8216b491 = []byte{
 	// 386 bytes of a gzipped FileDescriptorProto

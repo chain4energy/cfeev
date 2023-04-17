@@ -2,7 +2,7 @@ package types
 
 const (
 	// ModuleName defines the module name
-	ModuleName = "cfeev"
+	ModuleName = "github.com/chain4energy/cfeev"
 
 	// StoreKey defines the primary module store key
 	StoreKey = ModuleName

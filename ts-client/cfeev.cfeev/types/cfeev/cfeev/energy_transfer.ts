@@ -2,7 +2,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 
-export const protobufPackage = "cfeev.cfeev";
+export const protobufPackage = "github.com/chain4energy/cfeev.cfeev";
 
 export enum TransferStatus {
   REQUESTED = 0,

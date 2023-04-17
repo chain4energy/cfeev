@@ -6,8 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/server"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
-	"cfeev/app"
-	"cfeev/cmd/cfeevd/cmd"
+	"github.com/chain4energy/cfeev/app"
+	"github.com/chain4energy/cfeev/cmd/cfeevd/cmd"
 )
 
 func main() {

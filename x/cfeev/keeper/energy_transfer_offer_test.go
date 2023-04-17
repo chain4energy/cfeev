@@ -3,10 +3,10 @@ package keeper_test
 import (
 	"testing"
 
-	keepertest "cfeev/testutil/keeper"
-	"cfeev/testutil/nullify"
-	"cfeev/x/cfeev/keeper"
-	"cfeev/x/cfeev/types"
+	keepertest "github.com/chain4energy/cfeev/testutil/keeper"
+	"github.com/chain4energy/cfeev/testutil/nullify"
+	"github.com/chain4energy/cfeev/x/cfeev/keeper"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )

@@ -3,7 +3,7 @@ package types
 import (
 	"testing"
 
-	"cfeev/testutil/sample"
+	"github.com/chain4energy/cfeev/testutil/sample"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
 )

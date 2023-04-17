@@ -3,8 +3,8 @@ package simulation
 import (
 	"math/rand"
 
-	"cfeev/x/cfeev/keeper"
-	"cfeev/x/cfeev/types"
+	"github.com/chain4energy/cfeev/x/cfeev/keeper"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"

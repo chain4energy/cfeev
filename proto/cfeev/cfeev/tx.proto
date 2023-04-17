@@ -2,11 +2,11 @@ syntax = "proto3";
 package cfeev.cfeev;
 
 // this line is used by starport scaffolding # proto/tx/import
-import "cfeev/cfeev/location.proto";
-import "cfeev/cfeev/energy_transfer_offer.proto";
+import "github.com/chain4energy/cfeev/cfeev/location.proto";
+import "github.com/chain4energy/cfeev/cfeev/energy_transfer_offer.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
-option go_package = "cfeev/x/cfeev/types";
+option go_package = "github.com/chain4energy/cfeev/x/cfeev/types";
 
 // Msg defines the Msg service.
 service Msg {

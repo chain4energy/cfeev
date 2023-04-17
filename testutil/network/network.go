@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"cfeev/app"
+	"github.com/chain4energy/cfeev/app"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/crypto/hd"

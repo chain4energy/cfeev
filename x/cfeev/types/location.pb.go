@@ -75,10 +75,12 @@ func (m *Location) GetLongitude() string {
 }
 
 func init() {
-	proto.RegisterType((*Location)(nil), "cfeev.cfeev.Location")
+	proto.RegisterType((*Location)(nil), "github.com/chain4energy/cfeev.cfeev.Location")
 }
 
-func init() { proto.RegisterFile("cfeev/cfeev/location.proto", fileDescriptor_7a237b698b152fc1) }
+func init() {
+	proto.RegisterFile("github.com/chain4energy/cfeev/cfeev/location.proto", fileDescriptor_7a237b698b152fc1)
+}
 
 var fileDescriptor_7a237b698b152fc1 = []byte{
 	// 142 bytes of a gzipped FileDescriptorProto
