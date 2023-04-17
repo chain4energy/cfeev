@@ -6,7 +6,7 @@ import { EnergyTransfer } from "./energy_transfer";
 import { EnergyTransferOffer } from "./energy_transfer_offer";
 import { Params } from "./params";
 
-export const protobufPackage = "cfeev.cfeev";
+export const protobufPackage = "github.com/chain4energy/cfeev.cfeev";
 
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -919,31 +919,31 @@ export class QueryClientImpl implements Query {
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("cfeev.cfeev.Query", "Params", data);
+    const promise = this.rpc.request("github.com/chain4energy/cfeev.cfeev.Query", "Params", data);
     return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
   }
 
   EnergyTransferOffer(request: QueryGetEnergyTransferOfferRequest): Promise<QueryGetEnergyTransferOfferResponse> {
     const data = QueryGetEnergyTransferOfferRequest.encode(request).finish();
-    const promise = this.rpc.request("cfeev.cfeev.Query", "EnergyTransferOffer", data);
+    const promise = this.rpc.request("github.com/chain4energy/cfeev.cfeev.Query", "EnergyTransferOffer", data);
     return promise.then((data) => QueryGetEnergyTransferOfferResponse.decode(new _m0.Reader(data)));
   }
 
   EnergyTransferOfferAll(request: QueryAllEnergyTransferOfferRequest): Promise<QueryAllEnergyTransferOfferResponse> {
     const data = QueryAllEnergyTransferOfferRequest.encode(request).finish();
-    const promise = this.rpc.request("cfeev.cfeev.Query", "EnergyTransferOfferAll", data);
+    const promise = this.rpc.request("github.com/chain4energy/cfeev.cfeev.Query", "EnergyTransferOfferAll", data);
     return promise.then((data) => QueryAllEnergyTransferOfferResponse.decode(new _m0.Reader(data)));
   }
 
   EnergyTransfer(request: QueryGetEnergyTransferRequest): Promise<QueryGetEnergyTransferResponse> {
     const data = QueryGetEnergyTransferRequest.encode(request).finish();
-    const promise = this.rpc.request("cfeev.cfeev.Query", "EnergyTransfer", data);
+    const promise = this.rpc.request("github.com/chain4energy/cfeev.cfeev.Query", "EnergyTransfer", data);
     return promise.then((data) => QueryGetEnergyTransferResponse.decode(new _m0.Reader(data)));
   }
 
   EnergyTransferAll(request: QueryAllEnergyTransferRequest): Promise<QueryAllEnergyTransferResponse> {
     const data = QueryAllEnergyTransferRequest.encode(request).finish();
-    const promise = this.rpc.request("cfeev.cfeev.Query", "EnergyTransferAll", data);
+    const promise = this.rpc.request("github.com/chain4energy/cfeev.cfeev.Query", "EnergyTransferAll", data);
     return promise.then((data) => QueryAllEnergyTransferResponse.decode(new _m0.Reader(data)));
   }
 
@@ -951,13 +951,13 @@ export class QueryClientImpl implements Query {
     request: QueryListOwnEnergyTransferOfferRequest,
   ): Promise<QueryListOwnEnergyTransferOfferResponse> {
     const data = QueryListOwnEnergyTransferOfferRequest.encode(request).finish();
-    const promise = this.rpc.request("cfeev.cfeev.Query", "ListOwnEnergyTransferOffer", data);
+    const promise = this.rpc.request("github.com/chain4energy/cfeev.cfeev.Query", "ListOwnEnergyTransferOffer", data);
     return promise.then((data) => QueryListOwnEnergyTransferOfferResponse.decode(new _m0.Reader(data)));
   }
 
   ListOwnEnergyTransfer(request: QueryListOwnEnergyTransferRequest): Promise<QueryListOwnEnergyTransferResponse> {
     const data = QueryListOwnEnergyTransferRequest.encode(request).finish();
-    const promise = this.rpc.request("cfeev.cfeev.Query", "ListOwnEnergyTransfer", data);
+    const promise = this.rpc.request("github.com/chain4energy/cfeev.cfeev.Query", "ListOwnEnergyTransfer", data);
     return promise.then((data) => QueryListOwnEnergyTransferResponse.decode(new _m0.Reader(data)));
   }
 }

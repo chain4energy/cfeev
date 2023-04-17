@@ -717,21 +717,23 @@ func (m *MsgRemoveEnergyOfferResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgRemoveEnergyOfferResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgPublishEnergyTransferOffer)(nil), "cfeev.cfeev.MsgPublishEnergyTransferOffer")
-	proto.RegisterType((*MsgPublishEnergyTransferOfferResponse)(nil), "cfeev.cfeev.MsgPublishEnergyTransferOfferResponse")
-	proto.RegisterType((*MsgStartEnergyTransferRequest)(nil), "cfeev.cfeev.MsgStartEnergyTransferRequest")
-	proto.RegisterType((*MsgStartEnergyTransferRequestResponse)(nil), "cfeev.cfeev.MsgStartEnergyTransferRequestResponse")
-	proto.RegisterType((*MsgEnergyTransferStartedRequest)(nil), "cfeev.cfeev.MsgEnergyTransferStartedRequest")
-	proto.RegisterType((*MsgEnergyTransferStartedRequestResponse)(nil), "cfeev.cfeev.MsgEnergyTransferStartedRequestResponse")
-	proto.RegisterType((*MsgEnergyTransferCompletedRequest)(nil), "cfeev.cfeev.MsgEnergyTransferCompletedRequest")
-	proto.RegisterType((*MsgEnergyTransferCompletedRequestResponse)(nil), "cfeev.cfeev.MsgEnergyTransferCompletedRequestResponse")
-	proto.RegisterType((*MsgCancelEnergyTransferRequest)(nil), "cfeev.cfeev.MsgCancelEnergyTransferRequest")
-	proto.RegisterType((*MsgCancelEnergyTransferRequestResponse)(nil), "cfeev.cfeev.MsgCancelEnergyTransferRequestResponse")
-	proto.RegisterType((*MsgRemoveEnergyOffer)(nil), "cfeev.cfeev.MsgRemoveEnergyOffer")
-	proto.RegisterType((*MsgRemoveEnergyOfferResponse)(nil), "cfeev.cfeev.MsgRemoveEnergyOfferResponse")
+	proto.RegisterType((*MsgPublishEnergyTransferOffer)(nil), "github.com/chain4energy/cfeev.cfeev.MsgPublishEnergyTransferOffer")
+	proto.RegisterType((*MsgPublishEnergyTransferOfferResponse)(nil), "github.com/chain4energy/cfeev.cfeev.MsgPublishEnergyTransferOfferResponse")
+	proto.RegisterType((*MsgStartEnergyTransferRequest)(nil), "github.com/chain4energy/cfeev.cfeev.MsgStartEnergyTransferRequest")
+	proto.RegisterType((*MsgStartEnergyTransferRequestResponse)(nil), "github.com/chain4energy/cfeev.cfeev.MsgStartEnergyTransferRequestResponse")
+	proto.RegisterType((*MsgEnergyTransferStartedRequest)(nil), "github.com/chain4energy/cfeev.cfeev.MsgEnergyTransferStartedRequest")
+	proto.RegisterType((*MsgEnergyTransferStartedRequestResponse)(nil), "github.com/chain4energy/cfeev.cfeev.MsgEnergyTransferStartedRequestResponse")
+	proto.RegisterType((*MsgEnergyTransferCompletedRequest)(nil), "github.com/chain4energy/cfeev.cfeev.MsgEnergyTransferCompletedRequest")
+	proto.RegisterType((*MsgEnergyTransferCompletedRequestResponse)(nil), "github.com/chain4energy/cfeev.cfeev.MsgEnergyTransferCompletedRequestResponse")
+	proto.RegisterType((*MsgCancelEnergyTransferRequest)(nil), "github.com/chain4energy/cfeev.cfeev.MsgCancelEnergyTransferRequest")
+	proto.RegisterType((*MsgCancelEnergyTransferRequestResponse)(nil), "github.com/chain4energy/cfeev.cfeev.MsgCancelEnergyTransferRequestResponse")
+	proto.RegisterType((*MsgRemoveEnergyOffer)(nil), "github.com/chain4energy/cfeev.cfeev.MsgRemoveEnergyOffer")
+	proto.RegisterType((*MsgRemoveEnergyOfferResponse)(nil), "github.com/chain4energy/cfeev.cfeev.MsgRemoveEnergyOfferResponse")
 }
 
-func init() { proto.RegisterFile("cfeev/cfeev/tx.proto", fileDescriptor_202d1d64d91f912c) }
+func init() {
+	proto.RegisterFile("github.com/chain4energy/cfeev/cfeev/tx.proto", fileDescriptor_202d1d64d91f912c)
+}
 
 var fileDescriptor_202d1d64d91f912c = []byte{
 	// 736 bytes of a gzipped FileDescriptorProto
@@ -1011,7 +1013,7 @@ func _Msg_RemoveEnergyOffer_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "cfeev.cfeev.Msg",
+	ServiceName: "github.com/chain4energy/cfeev.cfeev.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -1040,7 +1042,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "cfeev/cfeev/tx.proto",
+	Metadata: "github.com/chain4energy/cfeev/cfeev/tx.proto",
 }
 
 func (m *MsgPublishEnergyTransferOffer) Marshal() (dAtA []byte, err error) {

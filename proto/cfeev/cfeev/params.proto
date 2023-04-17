@@ -3,7 +3,7 @@ package cfeev.cfeev;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "cfeev/x/cfeev/types";
+option go_package = "github.com/chain4energy/cfeev/x/cfeev/types";
 
 // Params defines the parameters for the module.
 message Params {

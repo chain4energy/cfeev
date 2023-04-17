@@ -702,23 +702,25 @@ func (m *QueryListOwnEnergyTransferResponse) GetPagination() *query.PageResponse
 }
 
 func init() {
-	proto.RegisterType((*QueryParamsRequest)(nil), "cfeev.cfeev.QueryParamsRequest")
-	proto.RegisterType((*QueryParamsResponse)(nil), "cfeev.cfeev.QueryParamsResponse")
-	proto.RegisterType((*QueryGetEnergyTransferOfferRequest)(nil), "cfeev.cfeev.QueryGetEnergyTransferOfferRequest")
-	proto.RegisterType((*QueryGetEnergyTransferOfferResponse)(nil), "cfeev.cfeev.QueryGetEnergyTransferOfferResponse")
-	proto.RegisterType((*QueryAllEnergyTransferOfferRequest)(nil), "cfeev.cfeev.QueryAllEnergyTransferOfferRequest")
-	proto.RegisterType((*QueryAllEnergyTransferOfferResponse)(nil), "cfeev.cfeev.QueryAllEnergyTransferOfferResponse")
-	proto.RegisterType((*QueryGetEnergyTransferRequest)(nil), "cfeev.cfeev.QueryGetEnergyTransferRequest")
-	proto.RegisterType((*QueryGetEnergyTransferResponse)(nil), "cfeev.cfeev.QueryGetEnergyTransferResponse")
-	proto.RegisterType((*QueryAllEnergyTransferRequest)(nil), "cfeev.cfeev.QueryAllEnergyTransferRequest")
-	proto.RegisterType((*QueryAllEnergyTransferResponse)(nil), "cfeev.cfeev.QueryAllEnergyTransferResponse")
-	proto.RegisterType((*QueryListOwnEnergyTransferOfferRequest)(nil), "cfeev.cfeev.QueryListOwnEnergyTransferOfferRequest")
-	proto.RegisterType((*QueryListOwnEnergyTransferOfferResponse)(nil), "cfeev.cfeev.QueryListOwnEnergyTransferOfferResponse")
-	proto.RegisterType((*QueryListOwnEnergyTransferRequest)(nil), "cfeev.cfeev.QueryListOwnEnergyTransferRequest")
-	proto.RegisterType((*QueryListOwnEnergyTransferResponse)(nil), "cfeev.cfeev.QueryListOwnEnergyTransferResponse")
+	proto.RegisterType((*QueryParamsRequest)(nil), "github.com/chain4energy/cfeev.cfeev.QueryParamsRequest")
+	proto.RegisterType((*QueryParamsResponse)(nil), "github.com/chain4energy/cfeev.cfeev.QueryParamsResponse")
+	proto.RegisterType((*QueryGetEnergyTransferOfferRequest)(nil), "github.com/chain4energy/cfeev.cfeev.QueryGetEnergyTransferOfferRequest")
+	proto.RegisterType((*QueryGetEnergyTransferOfferResponse)(nil), "github.com/chain4energy/cfeev.cfeev.QueryGetEnergyTransferOfferResponse")
+	proto.RegisterType((*QueryAllEnergyTransferOfferRequest)(nil), "github.com/chain4energy/cfeev.cfeev.QueryAllEnergyTransferOfferRequest")
+	proto.RegisterType((*QueryAllEnergyTransferOfferResponse)(nil), "github.com/chain4energy/cfeev.cfeev.QueryAllEnergyTransferOfferResponse")
+	proto.RegisterType((*QueryGetEnergyTransferRequest)(nil), "github.com/chain4energy/cfeev.cfeev.QueryGetEnergyTransferRequest")
+	proto.RegisterType((*QueryGetEnergyTransferResponse)(nil), "github.com/chain4energy/cfeev.cfeev.QueryGetEnergyTransferResponse")
+	proto.RegisterType((*QueryAllEnergyTransferRequest)(nil), "github.com/chain4energy/cfeev.cfeev.QueryAllEnergyTransferRequest")
+	proto.RegisterType((*QueryAllEnergyTransferResponse)(nil), "github.com/chain4energy/cfeev.cfeev.QueryAllEnergyTransferResponse")
+	proto.RegisterType((*QueryListOwnEnergyTransferOfferRequest)(nil), "github.com/chain4energy/cfeev.cfeev.QueryListOwnEnergyTransferOfferRequest")
+	proto.RegisterType((*QueryListOwnEnergyTransferOfferResponse)(nil), "github.com/chain4energy/cfeev.cfeev.QueryListOwnEnergyTransferOfferResponse")
+	proto.RegisterType((*QueryListOwnEnergyTransferRequest)(nil), "github.com/chain4energy/cfeev.cfeev.QueryListOwnEnergyTransferRequest")
+	proto.RegisterType((*QueryListOwnEnergyTransferResponse)(nil), "github.com/chain4energy/cfeev.cfeev.QueryListOwnEnergyTransferResponse")
 }
 
-func init() { proto.RegisterFile("cfeev/cfeev/query.proto", fileDescriptor_ac636476ff56052c) }
+func init() {
+	proto.RegisterFile("github.com/chain4energy/cfeev/cfeev/query.proto", fileDescriptor_ac636476ff56052c)
+}
 
 var fileDescriptor_ac636476ff56052c = []byte{
 	// 792 bytes of a gzipped FileDescriptorProto
@@ -1048,7 +1050,7 @@ func _Query_ListOwnEnergyTransfer_Handler(srv interface{}, ctx context.Context, 
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "cfeev.cfeev.Query",
+	ServiceName: "github.com/chain4energy/cfeev.cfeev.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -1081,7 +1083,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "cfeev/cfeev/query.proto",
+	Metadata: "github.com/chain4energy/cfeev/cfeev/query.proto",
 }
 
 func (m *QueryParamsRequest) Marshal() (dAtA []byte, err error) {

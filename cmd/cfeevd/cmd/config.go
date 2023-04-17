@@ -3,7 +3,7 @@ package cmd
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"cfeev/app"
+	"github.com/chain4energy/cfeev/app"
 )
 
 func initSDKConfig() {

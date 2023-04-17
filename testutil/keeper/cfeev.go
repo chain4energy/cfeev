@@ -3,8 +3,8 @@ package keeper
 import (
 	"testing"
 
-	"cfeev/x/cfeev/keeper"
-	"cfeev/x/cfeev/types"
+	"github.com/chain4energy/cfeev/x/cfeev/keeper"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/store"

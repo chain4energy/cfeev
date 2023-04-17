@@ -60,10 +60,12 @@ func (m *Params) XXX_DiscardUnknown() {
 var xxx_messageInfo_Params proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*Params)(nil), "cfeev.cfeev.Params")
+	proto.RegisterType((*Params)(nil), "github.com/chain4energy/cfeev.cfeev.Params")
 }
 
-func init() { proto.RegisterFile("cfeev/cfeev/params.proto", fileDescriptor_d5947ad5578e8c8f) }
+func init() {
+	proto.RegisterFile("github.com/chain4energy/cfeev/cfeev/params.proto", fileDescriptor_d5947ad5578e8c8f)
+}
 
 var fileDescriptor_d5947ad5578e8c8f = []byte{
 	// 123 bytes of a gzipped FileDescriptorProto

@@ -91,10 +91,12 @@ func (m *EnergyTransferCreatedEvent) GetAction() string {
 }
 
 func init() {
-	proto.RegisterType((*EnergyTransferCreatedEvent)(nil), "cfeev.cfeev.EnergyTransferCreatedEvent")
+	proto.RegisterType((*EnergyTransferCreatedEvent)(nil), "github.com/chain4energy/cfeev.cfeev.EnergyTransferCreatedEvent")
 }
 
-func init() { proto.RegisterFile("cfeev/cfeev/event.proto", fileDescriptor_ee03b44c928043b8) }
+func init() {
+	proto.RegisterFile("github.com/chain4energy/cfeev/cfeev/event.proto", fileDescriptor_ee03b44c928043b8)
+}
 
 var fileDescriptor_ee03b44c928043b8 = []byte{
 	// 203 bytes of a gzipped FileDescriptorProto

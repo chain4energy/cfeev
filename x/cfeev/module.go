@@ -11,9 +11,9 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"cfeev/x/cfeev/client/cli"
-	"cfeev/x/cfeev/keeper"
-	"cfeev/x/cfeev/types"
+	"github.com/chain4energy/cfeev/x/cfeev/client/cli"
+	"github.com/chain4energy/cfeev/x/cfeev/keeper"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"

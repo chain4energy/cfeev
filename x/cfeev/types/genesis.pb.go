@@ -101,10 +101,12 @@ func (m *GenesisState) GetEnergyTransferCount() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "cfeev.cfeev.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "github.com/chain4energy/cfeev.cfeev.GenesisState")
 }
 
-func init() { proto.RegisterFile("cfeev/cfeev/genesis.proto", fileDescriptor_5c977ec58a041ef7) }
+func init() {
+	proto.RegisterFile("github.com/chain4energy/cfeev/cfeev/genesis.proto", fileDescriptor_5c977ec58a041ef7)
+}
 
 var fileDescriptor_5c977ec58a041ef7 = []byte{
 	// 287 bytes of a gzipped FileDescriptorProto

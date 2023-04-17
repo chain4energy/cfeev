@@ -182,13 +182,13 @@ func (m *EnergyTransferOffer) GetPlugType() PlugType {
 }
 
 func init() {
-	proto.RegisterEnum("cfeev.cfeev.ChargerStatus", ChargerStatus_name, ChargerStatus_value)
-	proto.RegisterEnum("cfeev.cfeev.PlugType", PlugType_name, PlugType_value)
-	proto.RegisterType((*EnergyTransferOffer)(nil), "cfeev.cfeev.EnergyTransferOffer")
+	proto.RegisterEnum("github.com/chain4energy/cfeev.cfeev.ChargerStatus", ChargerStatus_name, ChargerStatus_value)
+	proto.RegisterEnum("github.com/chain4energy/cfeev.cfeev.PlugType", PlugType_name, PlugType_value)
+	proto.RegisterType((*EnergyTransferOffer)(nil), "github.com/chain4energy/cfeev.cfeev.EnergyTransferOffer")
 }
 
 func init() {
-	proto.RegisterFile("cfeev/cfeev/energy_transfer_offer.proto", fileDescriptor_375e3f0d6d61ad8e)
+	proto.RegisterFile("github.com/chain4energy/cfeev/cfeev/energy_transfer_offer.proto", fileDescriptor_375e3f0d6d61ad8e)
 }
 
 var fileDescriptor_375e3f0d6d61ad8e = []byte{

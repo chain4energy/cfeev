@@ -11,10 +11,10 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"cfeev/testutil/network"
-	"cfeev/testutil/nullify"
-	"cfeev/x/cfeev/client/cli"
-	"cfeev/x/cfeev/types"
+	"github.com/chain4energy/cfeev/testutil/network"
+	"github.com/chain4energy/cfeev/testutil/nullify"
+	"github.com/chain4energy/cfeev/x/cfeev/client/cli"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 )
 
 func networkWithEnergyTransferOfferObjects(t *testing.T, n int) (*network.Network, []types.EnergyTransferOffer) {

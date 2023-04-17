@@ -3,8 +3,8 @@ package cli
 import (
 	"strconv"
 
-	"cfeev/x/cfeev/types"
 	"encoding/json"
+	"github.com/chain4energy/cfeev/x/cfeev/types"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"

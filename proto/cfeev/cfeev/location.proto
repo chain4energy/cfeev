@@ -1,7 +1,7 @@
 syntax = "proto3";
 package cfeev.cfeev;
 
-option go_package = "cfeev/x/cfeev/types";
+option go_package = "github.com/chain4energy/cfeev/x/cfeev/types";
 
 message Location {
   

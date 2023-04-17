@@ -104,19 +104,19 @@ import (
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
 
-	cfeevmodule "cfeev/x/cfeev"
-	cfeevmodulekeeper "cfeev/x/cfeev/keeper"
-	cfeevmoduletypes "cfeev/x/cfeev/types"
+	cfeevmodule "github.com/chain4energy/cfeev/x/cfeev"
+	cfeevmodulekeeper "github.com/chain4energy/cfeev/x/cfeev/keeper"
+	cfeevmoduletypes "github.com/chain4energy/cfeev/x/cfeev/types"
 
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
-	appparams "cfeev/app/params"
-	"cfeev/docs"
+	appparams "github.com/chain4energy/cfeev/app/params"
+	"github.com/chain4energy/cfeev/docs"
 )
 
 const (
 	AccountAddressPrefix = "c4e"
-	Name                 = "cfeev"
+	Name                 = "github.com/chain4energy/cfeev"
 )
 
 // this line is used by starport scaffolding # stargate/wasm/app/enabledProposals
