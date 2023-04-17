@@ -1,10 +1,10 @@
 // THIS FILE IS GENERATED AUTOMATICALLY. DO NOT MODIFY.
 
-import CfeevCfeev from './cfeev.cfeev'
+import Chain4EnergyCfeevCfeev from './chain4energy.cfeev.cfeev'
 
 
 export default { 
-  CfeevCfeev: load(CfeevCfeev, 'cfeev.cfeev'),
+  Chain4EnergyCfeevCfeev: load(Chain4EnergyCfeevCfeev, 'chain4energy.cfeev.cfeev'),
   
 }
 

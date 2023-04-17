@@ -1,8 +1,8 @@
 syntax = "proto3";
-package cfeev.cfeev;
+package chain4energy.cfeev.cfeev;
 
 option go_package = "github.com/chain4energy/cfeev/x/cfeev/types";
-import "github.com/chain4energy/cfeev/cfeev/location.proto";
+import "cfeev/cfeev/location.proto";
 
 message EnergyTransferOffer {
   uint64 id = 1;

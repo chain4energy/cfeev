@@ -116,7 +116,7 @@ import (
 
 const (
 	AccountAddressPrefix = "c4e"
-	Name                 = "github.com/chain4energy/cfeev"
+	Name                 = "cfeev"
 )
 
 // this line is used by starport scaffolding # stargate/wasm/app/enabledProposals

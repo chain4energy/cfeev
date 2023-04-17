@@ -7,8 +7,9 @@
     "@starport/vue": "^0.3.10",
     "@starport/vuex": "^0.3.10",
     "buffer": "^6.0.3",
-    "github.com/chain4energy/cfeev-client-ts": "file:../ts-client",
+    "chain4energy-cfeev-client-ts": "file:../ts-client",
     "core-js": "^3.18.2",
+    "github.com/chain4energy/cfeev-client-ts": "file:../ts-client",
     "vue": "^3.2.6",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.2"

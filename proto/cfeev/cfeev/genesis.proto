@@ -1,10 +1,10 @@
 syntax = "proto3";
-package cfeev.cfeev;
+package chain4energy.cfeev.cfeev;
 
 import "gogoproto/gogo.proto";
-import "github.com/chain4energy/cfeev/cfeev/params.proto";
-import "github.com/chain4energy/cfeev/cfeev/energy_transfer_offer.proto";
-import "github.com/chain4energy/cfeev/cfeev/energy_transfer.proto";
+import "cfeev/cfeev/params.proto";
+import "cfeev/cfeev/energy_transfer_offer.proto";
+import "cfeev/cfeev/energy_transfer.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/chain4energy/cfeev/x/cfeev/types";

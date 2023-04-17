@@ -8,12 +8,12 @@ import (
 )
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&MsgPublishEnergyTransferOffer{}, "github.com/chain4energy/cfeev/PublishEnergyTransferOffer", nil)
-	cdc.RegisterConcrete(&MsgStartEnergyTransferRequest{}, "github.com/chain4energy/cfeev/StartEnergyTransferRequest", nil)
-	cdc.RegisterConcrete(&MsgEnergyTransferStartedRequest{}, "github.com/chain4energy/cfeev/EnergyTransferStartedRequest", nil)
-	cdc.RegisterConcrete(&MsgEnergyTransferCompletedRequest{}, "github.com/chain4energy/cfeev/EnergyTransferCompletedRequest", nil)
-	cdc.RegisterConcrete(&MsgCancelEnergyTransferRequest{}, "github.com/chain4energy/cfeev/CancelEnergyTransferRequest", nil)
-	cdc.RegisterConcrete(&MsgRemoveEnergyOffer{}, "github.com/chain4energy/cfeev/RemoveEnergyOffer", nil)
+	cdc.RegisterConcrete(&MsgPublishEnergyTransferOffer{}, "cfeev/PublishEnergyTransferOffer", nil)
+	cdc.RegisterConcrete(&MsgStartEnergyTransferRequest{}, "cfeev/StartEnergyTransferRequest", nil)
+	cdc.RegisterConcrete(&MsgEnergyTransferStartedRequest{}, "cfeev/EnergyTransferStartedRequest", nil)
+	cdc.RegisterConcrete(&MsgEnergyTransferCompletedRequest{}, "cfeev/EnergyTransferCompletedRequest", nil)
+	cdc.RegisterConcrete(&MsgCancelEnergyTransferRequest{}, "cfeev/CancelEnergyTransferRequest", nil)
+	cdc.RegisterConcrete(&MsgRemoveEnergyOffer{}, "cfeev/RemoveEnergyOffer", nil)
 	// this line is used by starport scaffolding # 2
 }
 
