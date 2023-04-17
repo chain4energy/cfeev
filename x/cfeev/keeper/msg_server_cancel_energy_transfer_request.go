@@ -18,9 +18,9 @@ func (k msgServer) CancelEnergyTransferRequest(goCtx context.Context, msg *types
 		return nil, sdkerrors.Wrap(types.ErrEnergyTransferNotFound, "energy transfer not found")
 	}
 
-	if energyTransferObj.GetStatus() != types.TransferStatus_REQUESTED {
-		return nil, sdkerrors.Wrap(types.ErrWrongEnergyTransferStatus, energyTransferObj.GetStatus().String())
-	}
+	// if energyTransferObj.GetStatus() != types.TransferStatus_REQUESTED {
+	// 	return nil, sdkerrors.Wrap(types.ErrWrongEnergyTransferStatus, energyTransferObj.GetStatus().String())
+	// }
 
 	energyTransferObj.Status = types.TransferStatus_CANCELLED
 
