@@ -16,6 +16,12 @@ func (k msgServer) EnergyTransferStartedRequest(goCtx context.Context, msg *type
 	if !found {
 		return nil, sdkerrors.Wrap(types.ErrEnergyTransferNotFound, "energy transfer not found")
 	}
+
+	if energyTransfer.Status != types.TransferStatus_REQUESTED {
+		return nil, sdkerrors.Wrap(types.ErrWrongEnergyTransferStatus, energyTransfer.Status.String())
+	}
+
+	// REQUESTED ==> ONGOING
 	energyTransfer.Status = types.TransferStatus_ONGOING
 
 	// update energyTransfer instance in the KVStore
