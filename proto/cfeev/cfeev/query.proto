@@ -47,6 +47,11 @@ service Query {
 		option (google.api.http).get = "/cfeev/cfeev/list_own_energy_transfer/{driverAccAddress}";
 	}
 
+// Queries a list of ListOwnerEnergyTransfer items.
+	rpc ListOwnerEnergyTransfer(QueryListOwnerEnergyTransferRequest) returns (QueryListOwnerEnergyTransferResponse) {
+		option (google.api.http).get = "/chain4energy/cfeev/cfeev/list_owner_energy_transfer/{ownerAccAddress}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -110,6 +115,16 @@ cosmos.base.query.v1beta1.PageRequest pagination = 3;
 }
 
 message QueryListOwnEnergyTransferResponse {
+  repeated EnergyTransfer energyTransfer = 1 [(gogoproto.nullable) = false];
+cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryListOwnerEnergyTransferRequest {
+  string ownerAccAddress = 1;
+cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryListOwnerEnergyTransferResponse {
   repeated EnergyTransfer energyTransfer = 1 [(gogoproto.nullable) = false];
 cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

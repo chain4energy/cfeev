@@ -154,6 +154,21 @@ export interface CfeevQueryListOwnEnergyTransferResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface CfeevQueryListOwnerEnergyTransferResponse {
+  energyTransfer?: CfeevEnergyTransfer[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.
  */
@@ -544,6 +559,33 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     this.request<CfeevQueryParamsResponse, RpcStatus>({
       path: `/cfeev/cfeev/params`,
       method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryListOwnerEnergyTransfer
+   * @summary Queries a list of ListOwnerEnergyTransfer items.
+   * @request GET:/chain4energy/cfeev/cfeev/list_owner_energy_transfer/{ownerAccAddress}
+   */
+  queryListOwnerEnergyTransfer = (
+    ownerAccAddress: string,
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<CfeevQueryListOwnerEnergyTransferResponse, RpcStatus>({
+      path: `/chain4energy/cfeev/cfeev/list_owner_energy_transfer/${ownerAccAddress}`,
+      method: "GET",
+      query: query,
       format: "json",
       ...params,
     });
